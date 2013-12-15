@@ -12,7 +12,7 @@ response = urllib2.urlopen(req)
 page = response.read()
 
 # We want to try and simulate a button click.
-driver = webdriver.Chrome()
+driver = webdriver.Firefox()
 driver.get("http://www.eh3.uc.edu/GenomicsPortals/analysisWithoutGeneList.do?data_set=GSE3494Entrez&db=hgu133aEntrez")
 time.sleep(10)
 driver.find_element_by_xpath("//*[@id='center_holder']/table/tbody/tr[2]/td[2]/table[3]/tbody/tr[1]/td[1]/input").click()
