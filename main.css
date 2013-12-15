@@ -1,9 +1,25 @@
 /* PAGE WRAPPER:
- * Put a 5 cm margin all the way around
+ * Put a 1 cm margin all the way around
  */
 .wrapper
 {
-    margin: 1cm 1cm 1cm 1cm;
+    background-color: #FFDD73;
+    height: inherit;
+    width: inherit;
+    background-size: cover;
+    font-size: larger;
+}
+
+/* CONTENT WRAPPER
+ * 
+
+/* PAGE HEADER:
+ * Display the background colors
+ */
+.page_header
+{
+    background-color: #408DD2;
+    border-radius:5px;
 }
 
 /* PAGE TITLE:
@@ -16,6 +32,7 @@ h1.page_title
     text-align: center;
     font-family:Arial,Helvetica,sans-serif;
     font-size: 50px;
+    color: #A63400;
 }
 
 
@@ -72,6 +89,19 @@ h1.page_title
     width:150px;
     border-radius:25px;
     font-family:Arial,Helvetica,sans-serif;
+}
+
+#add-block-button
+{
+    float: left;
+    margin-left: 5px;
+    border:2px solid #a1a1a1;
+    padding:10px 40px; 
+    background:#dddddd;
+    width:150px;
+    border-radius:25px;
+    font-family:Arial,Helvetica,sans-serif;
+    color: #000000;
 }
 
 /* DATA PATH WRAPPER
