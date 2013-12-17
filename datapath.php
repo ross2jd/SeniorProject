@@ -23,8 +23,8 @@
  
     $( "#dialog-form" ).dialog({
       autoOpen: false,
-      height: 300,
-      width: 350,
+      height: 450,
+      width: 500,
       modal: true,
       buttons: {
         "Add selected block": function() {
@@ -74,7 +74,7 @@
         while ($row = mysqli_fetch_assoc($result))
         {
             echo "<tr><td><input type='radio' name='block_name' class='radio ui-widget-content ui-corner-all' value='".$row['name']."'></td>";
-            echo "<td>".$row['name']."</td><td style='word-wrap: break-word'>".$row['description']."</td></tr>";
+            echo "<td style='padding: 5px'>".$row['name']."</td><td style='word-wrap: break-word; padding: 5px'>".$row['description']."</td></tr>";
         }
         
         // Free the result
@@ -104,6 +104,9 @@
             </tr>
         </table>
         <div class="data_path_wrapper">
+            <div class="new_block_zone">
+                <p><strong>New Block Drop Zone<br />(Reserved)</strong></p>
+            </div>
             <canvas>
             </canvas>
         </div>
