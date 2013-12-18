@@ -34,11 +34,13 @@ for portal in portal_list:
     if portal.find("a") is not None:
         for string_port in portal.findAll(text=True):
             string_stripped = str(string_port).replace('\n', "").replace('\t', "")
+            string_stripped = string_stripped.rstrip()
             if string_stripped is not "":
                 portal_name_list.append(string_stripped)
     else:
         for string_desc in portal.findAll(text=True):
             string_stripped = str(string_desc).replace('\n', "").replace('\t', "")
+            string_stripped = string_stripped.rstrip()
             if string_stripped is not "":
                 portal_description_list.append(string_stripped)
 

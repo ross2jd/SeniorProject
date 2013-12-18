@@ -20,7 +20,7 @@
   </style>
   <script>
   $(function() {
- 
+    var answer;
     $( "#dialog-form" ).dialog({
       autoOpen: false,
       height: 450,
@@ -28,14 +28,22 @@
       modal: true,
       buttons: {
         "Add selected block": function() {
+            $("input").each(function(){
+                (this.checked == true) ? answer = $(this).val() : null;
+            });
             $( this ).dialog( "close" );
         },
         Cancel: function() {
-          $( this ).dialog( "close" );
+            answer = null;
+            $( this ).dialog( "close" );
         }
-      },
-      close: function() {
-      }
+        },
+        close: function(event, ui) {
+            if (answer == "Genomics Portal Block") {
+                // Then we want to go to edit Genomics Portal Block page
+                window.location.href = "genomicsPortalBlockSetup_step1.php";
+            }
+        }
     });
  
     $( "#add-block-button" )
@@ -73,7 +81,8 @@
         
         while ($row = mysqli_fetch_assoc($result))
         {
-            echo "<tr><td><input type='radio' name='block_name' class='radio ui-widget-content ui-corner-all' value='".$row['name']."'></td>";
+            //echo "<tr><td><input type='radio' name='block_name' class='radio ui-widget-content ui-corner-all' value='".$row['name']."'></td>";
+            echo "<tr><td><input type='radio' name='block_name' class='radio_block_name' value='".$row['name']."'></td>";
             echo "<td style='padding: 5px'>".$row['name']."</td><td style='word-wrap: break-word; padding: 5px'>".$row['description']."</td></tr>";
         }
         
