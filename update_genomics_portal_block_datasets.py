@@ -8,6 +8,7 @@
 ##
 ## Revision History
 ## jross    12/18/2013  Created.
+## jross    12/20/2013  Added in the functionality to put in the GET string names
 ##
 ###############################################################################
 __author__ = 'Jordan Ross'
@@ -28,6 +29,7 @@ portal_list = soup.findAll("td","ExperiPortalsTableCells")
 # description
 portal_name_list = []
 portal_description_list = []
+portal_getstring_list = []
 
 for portal in portal_list:
     # This will find the portal names and strip away any unwanted characters and append it to the list of portal names
@@ -43,6 +45,10 @@ for portal in portal_list:
             string_stripped = string_stripped.rstrip()
             if string_stripped is not "":
                 portal_description_list.append(string_stripped)
+    if portal.find(attrs={"name" : "portal_name"}) is not None:
+        name = portal.find(attrs={"name" : "portal_name"})
+        portal_getstring_list.append(str(name['value']).strip())
+        # We want to value of the input tag with the name="portal_name" so we know the GET method values.
 
 if len(portal_description_list) is not len(portal_name_list):
     # We have an error and should throw an exception
@@ -62,8 +68,8 @@ except:
 
 # Now repopulate the table
 for i in range(0, len(portal_name_list)):
-    sql = "INSERT INTO genomics_portal_block_datasets (portal_name, description) VALUES('%s', '%s')" % \
-          (portal_name_list[i], portal_description_list[i])
+    sql = "INSERT INTO genomics_portal_block_datasets (portal_name, portal_getstring, description) VALUES('%s', '%s'," \
+          " '%s')" % (portal_name_list[i], portal_getstring_list[i], portal_description_list[i])
     print sql
     try:
         # Execute the SQL command
@@ -71,8 +77,6 @@ for i in range(0, len(portal_name_list)):
         db.commit()
     except:
         print "Error: unable to add entry!"
-
-
 
 db.close()
 print "Done!"

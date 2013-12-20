@@ -44,11 +44,10 @@
         
         .datasets
         {
-            height: 700px;
-            width: 75%;
+            height: 100%;
+            width: 90%;
             margin: 0 auto;
             margin-top: 20px;
-            border: thin solid #000000;
         }
         
         .datasetsTable
@@ -105,7 +104,7 @@
         while ($row = mysqli_fetch_assoc($result))
         {
             //echo "<tr><td><input type='radio' name='block_name' class='radio ui-widget-content ui-corner-all' value='".$row['name']."'></td>";
-            echo "<tr><td><input type='radio' name='dataset_name' value='".$row['portal_name']."'></td>";
+            echo "<tr><td><input type='radio' name='dataset_name' value='".$row['portal_getstring']."'></td>";
             echo "<td style='padding: 5px'>".$row['portal_name']."</td><td style='word-wrap: break-word; padding: 5px'>".$row['description']."</td></tr>";
         }
         
