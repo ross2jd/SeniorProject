@@ -31,9 +31,15 @@
                 alert("Please select a data set to continue")
                 return;
             }
-            dataset_tags = document.getElementsByName("data_set");
-            database_tags = document.getElementsByName("db");
+            var analysis_index = getRadioIndex(document.getElementsByName("analysis_radio"));
+            var dataset_tags = document.getElementsByName("data_set");
+            var database_tags = document.getElementsByName("db");
+            var analysis_tags = document.getElementsByName("analysis_radio");
+            if (analysis_index[analysis_index].value == "query_data") {
+                //code
+            }
             var url = "genomicsPortalBlockSetup_step3.php?data_set="+dataset_tags[radio_index].value+"&db="+database_tags[radio_index].value;
+            url += "&analysis="+analysis_tags[analysis_index].value;
             window.location.href = url;
         }
     </script>
@@ -86,6 +92,21 @@
         .datasetsTable td
         {
             border: thin solid #000000;
+        }
+        
+        .analysisOptions
+        {
+            height: 100%;
+            width: 90%;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+        
+        .analysisOptionsTable
+        {
+            height: 100%;
+            width: 100%;
+            display: table;
         }
     </style>
 </head>
@@ -175,6 +196,24 @@
         unlink(dirname(__FILE__) . "/python_scripts/genomicPortalTemp/test".$fileID.".html") or exit("Unable to delete file!");
     }
 ?>
+    <!-- Now we need to display the options for what type of analysis they would like to conduct -->
+    <hr />
+    <div class="analysisOptions">
+    <table class="analysisOptionsTable">
+        <tr>
+            <td><input type="radio" name="analysis_radio" value="query_data" disabled=true></td>
+            <td>Query Data - Not supported</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="analysis_radio" value="diff_expression" checked=true></td>
+            <td>Differential Expression</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="analysis_radio" value="cluster_analysis" disabled=true></td>
+            <td>Cluster Analysis - Not supported</td>
+        </tr>
+    </table>
+    </div>
     <table class="push_buttons_table" style="margin-top: 20px;">
         <tr>
             <td>
