@@ -63,7 +63,7 @@ dataset_table['class'] = "datasetsTable"
 
 fileName = 'genomicPortalTemp/test' + str(fileID) + '.html'
 filePath = os.path.dirname(os.path.realpath(__file__))
-file = os.path.join(filePath, fileName)
-fh = open(file, 'w')
+tempFile = os.path.join(filePath, fileName)
+fh = open(tempFile, 'w')
 fh.write(dataset_table.prettify())
 fh.close()

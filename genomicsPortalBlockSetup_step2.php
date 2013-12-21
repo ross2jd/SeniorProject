@@ -35,9 +35,6 @@
             var dataset_tags = document.getElementsByName("data_set");
             var database_tags = document.getElementsByName("db");
             var analysis_tags = document.getElementsByName("analysis_radio");
-            if (analysis_index[analysis_index].value == "query_data") {
-                //code
-            }
             var url = "genomicsPortalBlockSetup_step3.php?data_set="+dataset_tags[radio_index].value+"&db="+database_tags[radio_index].value;
             url += "&analysis="+analysis_tags[analysis_index].value;
             window.location.href = url;
