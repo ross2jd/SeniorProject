@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-
+<?php
+    include 'clearSession.php';
+    session_start();
+?>
 <html lang="en-US">
 <head>
     <meta charset="utf-8">
     <title>Web Bio Blocks</title>
-    <link rel="stylesheet" type="text/css" href="main.css">     
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="blocks.css">  
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -51,6 +55,14 @@
       .click(function() {
         $( "#dialog-form" ).dialog( "open" );
       });
+    $('.new_block_zone .draggable').draggable({
+        appendTo: "#canvas",
+        containment: '.data_path_wrapper'
+    });
+
+    $('#canvas').droppable({ drop: function(e, opts) { 
+        $(this).append(opts.draggable.detach());
+    }});
   });
   </script>
 </head>
@@ -113,12 +125,68 @@
             </tr>
         </table>
         <div class="data_path_wrapper">
-            <div class="new_block_zone">
-                <p><strong>New Block Drop Zone<br />(Reserved)</strong></p>
-            </div>
-            <canvas>
-            </canvas>
+                <?php
+                clearSession();
+                /* How the layout will look for the datapath and the canvas
+                 *
+                 * --------------------------------------------------------
+                 * |                                                      |
+                 * |              New Block Drop Zone                     |   
+                 * |                                                      |
+                 * |------------------------------------------------------|
+                 * |                                                      |
+                 * |                                                      |
+                 * |                                                      |
+                 * |                     Canvas                           |
+                 * |                                                      |
+                 * |                                                      |
+                 * |------------------------------------------------------|
+                 */
+                    echo "<div class='new_block_zone'>";
+                    if (isset($_GET['block']) && isset($_GET['name']))
+                    {
+                        // We have a new block to place!
+                        $newBlock = "<div class='draggable ui-draggable ".$_GET['block']."_block'>".$_GET['name']."</div>";
+                        if (count($_SESSION['placedBlocks']) <= 0)
+                        {
+                            // This is our first block so when need to initiailize the array
+                            $_SESSION['placedBlocks'] = array();
+                        }
+                        array_push($_SESSION['placedBlocks'], $newBlock);
+                    }
+                    else
+                    {
+                        clearSession();
+                        // No new block to place just place the reserved text
+                        echo "<div class='new_block_zone_text'>";
+                        echo "New Block Drop Zone (Reserved)";
+                        echo "</div>";
+                    }
+                    foreach($_SESSION['placedBlocks'] as $blocks)
+                    {
+                        echo $blocks;
+                    }
+                    echo "</div>"; // End of the new block drop zone div
+                    // Canvas area
+                    echo "<div id='canvas'></div>";
+                    
+                ?>
         </div>
+        <?php
+        if (isset($_SESSION['placedBlocks']))
+        {
+            // We have at least one block, display the run button
+            echo("
+            <table class='push_buttons_table'>
+                <tr>
+                    <td>
+                        <input id='add-block-button' class='push_button_left' type='button' value='Run' />
+                    </td<
+                </tr>
+            </table>
+            ");
+        }
+        ?>
     </div>
 </body>
 </div>

@@ -57,6 +57,7 @@
             var sigcutoff_tag = document.getElementsByName("sigcutoff");
             var foldchange_tag = document.getElementsByName("foldchange");
             var ifCluster_tag = document.getElementsByName("ifCluster");
+            // XXX: Add in validation for any missing entries!
             
             // Now we create the URL to pass to the PHP script.
             var url = "genomicsPortalBlockProcessSetup.php?data_set="+dataset_tag[0].value+"&db="+database_tag[0].value;

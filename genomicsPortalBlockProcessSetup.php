@@ -14,6 +14,7 @@ if ($_SESSION['fileID'].length > 0)
 {
     // an session file ID does not exist, we should create one.
     // we are going to use the users IP address
+    $_SESSION['fileID'] = array();
     $_SESSION['fileID'] = str_replace(".","",$_SERVER['REMOTE_ADDR']);
     $fileID = $_SESSION['fileID'];
     
@@ -37,6 +38,6 @@ foreach($_GET as $name=>$value)
 $footer = "****";
 fwrite($fh, $footer);
 fclose($fh);
-$url = "datapath.php";
+$url = "datapath.php?block=genomics_portal&name=".$_GET['BlockName'];
 header( "Location: $url" );
 ?>

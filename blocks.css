@@ -1,0 +1,15 @@
+/* This CSS file contains all the CSS for each supported block */
+
+.genomics_portal_block
+{
+    border: solid thin #000000;
+    background: #FF0000;
+    text-align: center;
+    font-size: medium;
+    height: 125px;
+    width: 125px;
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0 auto;
+    position: absolute;
+}
