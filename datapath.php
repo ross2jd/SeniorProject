@@ -22,6 +22,7 @@
     .ui-dialog .ui-state-error { padding: .3em; }
     .validateTips { border: 1px solid transparent; padding: 0.3em; }
   </style>
+  <script src="shapes.js"></script>
   <script>
   $(function() {
     var answer;
@@ -55,19 +56,14 @@
       .click(function() {
         $( "#dialog-form" ).dialog( "open" );
       });
-    $('.new_block_zone .draggable').draggable({
-        appendTo: "#canvas",
+    $('.draggable').draggable({
         containment: '.data_path_wrapper'
     });
-
-    $('#canvas').droppable({ drop: function(e, opts) { 
-        $(this).append(opts.draggable.detach());
-    }});
   });
   </script>
 </head>
 <div class="wrapper"> <!-- The wrapper for the page -->
-<body>
+<body onload="init()">
  
 <div id="dialog-form" title="Add Block">
     <p>Select a block that you would like to add to your data flow.</p>
@@ -127,22 +123,6 @@
         <div class="data_path_wrapper">
                 <?php
                 clearSession();
-                /* How the layout will look for the datapath and the canvas
-                 *
-                 * --------------------------------------------------------
-                 * |                                                      |
-                 * |              New Block Drop Zone                     |   
-                 * |                                                      |
-                 * |------------------------------------------------------|
-                 * |                                                      |
-                 * |                                                      |
-                 * |                                                      |
-                 * |                     Canvas                           |
-                 * |                                                      |
-                 * |                                                      |
-                 * |------------------------------------------------------|
-                 */
-                    echo "<div class='new_block_zone'>";
                     if (isset($_GET['block']) && isset($_GET['name']))
                     {
                         // We have a new block to place!
@@ -154,22 +134,17 @@
                         }
                         array_push($_SESSION['placedBlocks'], $newBlock);
                     }
-                    else
-                    {
-                        clearSession();
-                        // No new block to place just place the reserved text
-                        echo "<div class='new_block_zone_text'>";
-                        echo "New Block Drop Zone (Reserved)";
-                        echo "</div>";
-                    }
-                    foreach($_SESSION['placedBlocks'] as $blocks)
-                    {
-                        echo $blocks;
-                    }
-                    echo "</div>"; // End of the new block drop zone div
                     // Canvas area
-                    echo "<div id='canvas'></div>";
-                    
+                    //echo "<div id='canvas'>";
+                    //foreach($_SESSION['placedBlocks'] as $blocks)
+                    //{
+                    //    echo $blocks;
+                    //}
+                    //echo "</div>";
+                    echo("
+                        <canvas id='canvas1'>
+                        </canvas>"
+                    );
                 ?>
         </div>
         <?php

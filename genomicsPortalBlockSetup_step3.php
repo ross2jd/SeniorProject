@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Web Bio Blocks</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="main.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/mktree.css"></link>
     <script>
         function goBackToDatapath()
         {
@@ -68,19 +69,16 @@
         }
     </script>
     <style>
-        ul
+        .navBarList
         {
         list-style-type:none;
         margin:0;
         padding:0;
         overflow:hidden;
         }
-        li
-        {
-        float:left;
-        }
         .navBar
         {
+            float:left;
             display:block;
             width:32%;
             font-weight:bold;
@@ -97,6 +95,10 @@
         {
             border: thick solid #00EE00;
         }
+        th
+        {
+            text-align: left;
+        }
     </style>
 </head>
 <div class="wrapper"> <!-- The wrapper for the page -->
@@ -104,7 +106,7 @@
     <div class="page_header">
         <img style="float: right; margin-left: auto; margin-right: 5px;" src="Images\help_icon.png" />
         <h1 class="page_title">Genomics Portal Block Setup</h1>
-        <ul>
+        <ul class="navBarList">
             <li class="navBar" id="step1">Step 1</li>
             <li class="navBar" id="step2">Step 2</li>
             <li class="navBar" id="step3">Step 3</li>        
@@ -189,6 +191,29 @@
             <tr>
                 <td>Name for block</td>
                 <td><input type="text" name="BlockName" value=""></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Last thing we want to do is aks for what type of output they want -->
+    <hr />
+    <table>
+        <thead>
+            <tr>
+                <th colspan=2>Step 6: Specify what type of output you would like</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="radio" name="output" value="inter_tree_orig"></td>
+                <td>Interactive Tree Browsing - Originial Data (No succeeding blocks allowed)</td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="output" value="inter_tree_center"></td>
+                <td>Interactive Tree Browsing - Centered Data (No succeeding blocks allowed)</td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="output" value="raw_data"></td>
+                <td>Tabular format - Raw data (Succeeding blocks allowed)</td>
             </tr>
         </tbody>
     </table>

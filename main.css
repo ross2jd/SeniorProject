@@ -135,39 +135,6 @@ h1.page_title
     margin-left: auto;
     margin-right: auto;
     border:1px solid #000000;
-    height: 675px;
-    background: #FFFFFF;
-}
-
-.new_block_zone
-{
-    margin-left: 0px;
-    margin-top: 0px;
-    background: #E8E8E8;
-    height: 175px;
-    width: 1125px;
-    padding: 0px;
-    overflow: auto;
-    border-bottom: solid thin #000000;
-}
-.new_block_text
-{
-    background: #E8E8E8;
-    text-align: center;
-    font-size: medium;
-    height: 125px;
-    width: 125px;
-    display: table-cell;
-    vertical-align: middle;
-    margin: 0 auto;
-}
-
-#canvas
-{
-    margin-left: 0px;
-    margin-top: 0px;
-    background: #FFFFFF;
     height: 500px;
-    width: 1125px;
-    border-bottom: solid thin #000000;
+    background: #FFFFFF;
 }
