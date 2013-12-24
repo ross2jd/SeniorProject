@@ -48,6 +48,10 @@
                 // Then we want to go to edit Genomics Portal Block page
                 window.location.href = "genomicsPortalBlockSetup_step1.php";
             }
+            else if (answer == "Intersect Block") {
+                // Then we want to go to the intersect block page
+                window.location.href = "intersectBlockSetup_step1.php";
+            }
         }
     });
  

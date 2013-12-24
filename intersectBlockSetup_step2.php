@@ -18,13 +18,15 @@
         {
             var numInputsTag = document.getElementsByName("numInputs");
             var numInputs = numInputsTag[0].value;
+            var blockTypeTag = document.getElementsByName("blockType");
+            var blockType = blockTypeTag[0].value;
             
             var blockNamesUrlString = "";
             for (var i = 1; i <= numInputs; i++)
             {
                 blockNamesUrlString += "&blockName"+i+"="+document.getElementsByName("blockName"+i)[0].value;
             }
-            var url = "intersectBlockSetup_step3.php?numInputs="+numInputs+blockNamesUrlString;
+            var url = "intersectBlockSetup_step3.php?numInputs="+numInputs+blockNamesUrlString+"&blockType="+blockType;
             window.location.href = url;
         }
     </script>
@@ -71,15 +73,52 @@
     <div style="width: 90%; margin: 0 auto; margin-top: 20px;">
     <table>  
     <?php
+        // Here we will get the available block types for them to choose from
+        
+        // Create the connnection
+        $con = mysqli_connect("127.0.0.1", "root", "Hockey101", "webbioblocks");
+        
+        // Check connection
+        if (mysqli_connect_errno())
+        {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+        
+        $result = mysqli_query($con, "SELECT * FROM supported_blocks");
+        if ( false===$result ) {
+            printf("error: %s\n", mysqli_error($con));
+        }
+        
+        echo("
+                <tr><td>
+                <label style='padding-right: 20px;'>Select the block type for the succeeding names:</label>
+                </td>
+                <td><select name='blockType'>
+            ");
+        
+        while ($row = mysqli_fetch_assoc($result))
+        {
+            echo("<option value='".$row['name']."'>".$row['name']."</option>");
+        }
+        
+        echo ("</select></td></tr>");
+        
+        // Free the result
+        mysqli_free_result($result);
+        
+        // Close the connection
+        mysqli_close($con);
+        
+        // Now display the form for getting the block names.
         $numInputs = $_GET['numInputs'];
         echo ("<input type='hidden' name='numInputs' value='".$numInputs."')");
         for ($i = 1; $i <= $numInputs; $i++)
         {
             echo("
                     <tr><td>
-                    <label style='padding-right: 20px;'>Enter the name for input ".$i."</label>
-                    <input type='text' name='blockName".$i."' value=''>
-                    </tr></td>
+                    <label style='padding-right: 20px;'>Enter the name for input ".$i."</label></td>
+                    <td><input type='text' name='blockName".$i."' value=''>
+                    </td></tr>
                  ");
         }
     ?>

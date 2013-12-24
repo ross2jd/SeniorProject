@@ -1,5 +1,5 @@
 <?php
-// This PHP script should only run after the last step of the genomics block portal setup is completed.
+// This PHP script should only run after the last step of the intersect block setup is completed.
 // It is going to take all the information for the $_GET array and put it into a file. This file is
 // going to have a unique ID that is assigned when the user first visits the website.
 
@@ -24,7 +24,7 @@ if (file_exists($datapathBlocksFile)) {
   $fh = fopen($datapathBlocksFile, 'w');
 }
 // Write the header to the block data
-$header = "--Genomics--".PHP_EOL;
+$header = "--Intersect--".PHP_EOL;
 fwrite($fh, $header);
 // Use a foreach here write to the file...
 foreach($_GET as $name=>$value)
@@ -36,6 +36,6 @@ foreach($_GET as $name=>$value)
 $footer = "****".PHP_EOL;
 fwrite($fh, $footer);
 fclose($fh);
-$url = "datapath.php?block=genomics_portal&name=".$_GET['BlockName'];
+$url = "datapath.php?block=intersect&name=".$_GET['BlockName'];
 header( "Location: $url" );
 ?>

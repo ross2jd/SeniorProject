@@ -12,10 +12,19 @@
         }
         function getSelectedValues()
         {
-            var numInputsTag = document.getElementsByName("numInputs");
-            var numInputs = numInputsTag[0].value;
+            var numInputs = document.getElementsByName("numInputs")[0].value;
+            var blockType= document.getElementsByName("blockType")[0].value;
+            var criteria = document.getElementsByName("criteria")[0].value;
             
-            var url = "intersectBlockSetup_step2.php?numInputs="+numInputs;
+            // Now get all of the block names
+            var blockNames = "";
+            for (var i = 1; i <= numInputs; i++)
+            {
+                blockNames += "&blockName"+i+"="+document.getElementsByName("blockName"+i)[0].value;
+            }
+            
+            var url = "intersectBlockProcessSetup.php?numInputs="+numInputs+"&blockType="+blockType;
+            url += "&criteria="+criteria+blockNames;
             window.location.href = url;
         }
     </script>
@@ -60,13 +69,64 @@
         </ul>
     </div>
     <div style="width: 90%; margin: 0 auto; margin-top: 20px;">
-    <label style="padding-right: 20px;">How many inputs would you like to intersect?</label>
-    <input type="text" name="numInputs" value="">
+        <table>
+        <?php
+        // Here we will get the available criteria for them to choose from.
+        
+        // Create the connnection
+        $con = mysqli_connect("127.0.0.1", "root", "Hockey101", "webbioblocks");
+        
+        // Check connection
+        if (mysqli_connect_errno())
+        {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+
+        $result = mysqli_query($con, "SELECT * FROM intersect_supported_criteria WHERE block_name='".$_GET['blockType']."'");
+        if ( false===$result ) {
+            printf("error: %s\n", mysqli_error($con));
+        }
+        
+        echo("
+                <tr><td>
+                <label style='padding-right: 20px;'>Select the criteria for which to intersect the given blocks:</label>
+                </td>
+                <td><select name='criteria'>
+            ");
+        
+        $numColumns = mysqli_num_fields($result);
+        $row = mysqli_fetch_assoc($result);
+        $reservedColumns = 2; // We have the id and the name column that we don't want to count in.
+        for ($i = 1; $i <= $numColumns-$reservedColumns; $i++)
+        {
+            echo("
+                    <option value='".$row['supported_'.$i]."'>".ucfirst($row['supported_'.$i])."</option>   
+                ");
+        }
+        echo ("</select></td></tr>");
+        
+        // Free the result
+        mysqli_free_result($result);
+        
+        // Close the connection
+        mysqli_close($con);
+        
+        // We need to store the passed in values to be used in the processing stage so just put them
+        // in hidden input tags.
+        $numInputs = $_GET['numInputs'];
+        echo ("<input type='hidden' name='numInputs' value='".$numInputs."')");
+        foreach ($_GET as $key=>$val)
+        {
+            echo("<input type='hidden' name='".$key."' value ='".$val."'></input>");
+        }
+        
+        ?>
+        </table>
     </div>
     <table class="push_buttons_table" style="margin-top: 20px;">
         <tr>
             <td>
-                <button class="push_button_left" onclick="getSelectedValues()">Next</button>
+                <button class="push_button_left" onclick="getSelectedValues()">Create</button>
             <td>
                 <button class="push_button_right" onclick="goBackToDatapath()">Cancel</button>
             </td>
