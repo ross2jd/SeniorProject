@@ -3,6 +3,7 @@ __author__ = 'Jordan Ross'
 import os
 import genomicsPortalBlock
 import intersectBlock
+import genericResultsBlock
 import sys
 
 
@@ -44,8 +45,11 @@ def process_website_block(block):
 def process_logical_block(block, blocks):
     # First thing we should do is see what block it is
     if block['block'] == 'Intersect':
-        # We have a genomics website block, we should call its respective function
+        # We have an intersect block, we should call its respective function
         intersectBlock.process_block(block, blocks)
+    elif block['block'] == 'Generic Result':
+        # We have a generic results block, we should call its respective function
+        genericResultsBlock.process_block(block, blocks)
     else:
         # An unsupported block was found!
         print "Error:2:Unsupported block!"

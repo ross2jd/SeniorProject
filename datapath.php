@@ -57,6 +57,10 @@
                   // Then we want to go to the intersect block page
                   window.location.href = "intersectBlockSetup_step1.php";
               }
+              else if (answer == "Generic Results Block") {
+                // Then we want to go to the generic results block page
+                window.location.href = "genericResultsBlockSetup_step1.php"
+              }
           }
       });
  

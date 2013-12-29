@@ -12,19 +12,11 @@
         }
         function getSelectedValues()
         {
-            var numInputs = document.getElementsByName("numInputs")[0].value;
             var blockType= document.getElementsByName("blockType")[0].value;
-            var criteria = document.getElementsByName("criteria")[0].value;
+            var blockName = "&blockName="+document.getElementsByName("blockName")[0].value;
             
-            // Now get all of the block names
-            var blockNames = "";
-            for (var i = 0; i <= numInputs; i++)
-            {
-                blockNames += "&blockName"+i+"="+document.getElementsByName("blockName"+i)[0].value;
-            }
-            
-            var url = "intersectBlockProcessSetup.php?numInputs="+numInputs+"&blockType="+blockType;
-            url += "&criteria="+criteria+blockNames;
+            var url = "genericResultsBlockProcessSetup.php?blockType="+blockType;
+            url += blockName;
             window.location.href = url;
         }
     </script>
@@ -40,7 +32,7 @@
         {
             float:left;
             display:block;
-            width:32%;
+            width:99%;
             font-weight:bold;
             font-family:Arial,Helvetica,sans-serif;
             color:#FF0000;
@@ -51,7 +43,7 @@
             text-transform:uppercase;
             
         }
-        #step3
+        #step1
         {
             border: thick solid #00EE00;
         }
@@ -63,15 +55,13 @@
         <img style="float: right; margin-left: auto; margin-right: 5px;" src="Images\help_icon.png" />
         <h1 class="page_title">Intersect Block Setup</h1>
         <ul class="navBarList">
-            <li class="navBar" id="step1">Step 1</li>
-            <li class="navBar" id="step2">Step 2</li>
-            <li class="navBar" id="step3">Step 3</li>        
+            <li class="navBar" id="step1">Step 1</li>     
         </ul>
     </div>
     <div style="width: 90%; margin: 0 auto; margin-top: 20px;">
-        <table>
-        <?php
-        // Here we will get the available criteria for them to choose from.
+    <table>  
+    <?php
+        // Here we will get the available block types for them to choose from
         
         // Create the connnection
         $con = mysqli_connect("127.0.0.1", "root", "Hockey101", "webbioblocks");
@@ -81,28 +71,24 @@
         {
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
         }
-
-        $result = mysqli_query($con, "SELECT * FROM intersect_supported_criteria WHERE block_name='".$_GET['blockType']."'");
+        
+        $result = mysqli_query($con, "SELECT * FROM generic_result_block_supported");
         if ( false===$result ) {
             printf("error: %s\n", mysqli_error($con));
         }
         
         echo("
                 <tr><td>
-                <label style='padding-right: 20px;'>Select the criteria for which to intersect the given blocks:</label>
+                <label style='padding-right: 20px;'>Select the block type for the succeeding input:</label>
                 </td>
-                <td><select name='criteria'>
+                <td><select name='blockType'>
             ");
         
-        $numColumns = mysqli_num_fields($result);
-        $row = mysqli_fetch_assoc($result);
-        $reservedColumns = 2; // We have the id and the name column that we don't want to count in.
-        for ($i = 1; $i <= $numColumns-$reservedColumns; $i++)
+        while ($row = mysqli_fetch_assoc($result))
         {
-            echo("
-                    <option value='".$row['supported_'.$i]."'>".ucfirst($row['supported_'.$i])."</option>   
-                ");
+            echo("<option value='".$row['block_name']."'>".$row['block_name']."</option>");
         }
+        
         echo ("</select></td></tr>");
         
         // Free the result
@@ -114,22 +100,12 @@
         // Now display the form for getting the block name.
         echo("
             <tr><td>
-            <label style='padding-right: 20px;'>Enter the name for this block</label></td>
-            <td><input type='text' name='blockName0' value=''>
+            <label style='padding-right: 20px;'>Enter the name for input</label></td>
+            <td><input type='text' name='blockName' value=''>
             </td></tr>
             ");
-        
-        // We need to store the passed in values to be used in the processing stage so just put them
-        // in hidden input tags.
-        $numInputs = $_GET['numInputs'];
-        echo ("<input type='hidden' name='numInputs' value='".$numInputs."')");
-        foreach ($_GET as $key=>$val)
-        {
-            echo("<input type='hidden' name='".$key."' value ='".$val."'></input>");
-        }
-        
-        ?>
-        </table>
+    ?>
+    </table>
     </div>
     <table class="push_buttons_table" style="margin-top: 20px;">
         <tr>

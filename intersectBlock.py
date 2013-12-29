@@ -58,6 +58,6 @@ def process_block(intersect_block, blocks):
         data = intersect_data(intersect_block, data_files)
         intersect_block.update({'result': data})
     else:
-        print "Still waiting!"
+        return False
 
     return True
