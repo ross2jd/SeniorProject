@@ -3,9 +3,15 @@ __author__ = 'Jordan Ross'
 from selenium import webdriver
 import urllib2
 import time
+from pyvirtualdisplay import Display
+import os
 
 
 def retrieve_data(block):
+    # Create the virtual screen to use...
+    display = Display(visible=0, size=(800, 600))
+    display.start()
+
     # Go to the url that we are looking for.
     url = 'http://www.eh3.uc.edu/GenomicsPortals/differentialExpressionSetup.do?data_set='
     url += block['data_set']+'&db='+block['db']
@@ -112,16 +118,21 @@ def retrieve_data(block):
     req = urllib2.Request(download_url, None, headers)
     response = urllib2.urlopen(req)
 
+    script_dir = os.path.dirname(__file__)
     data_path = block['dataFile']
+    abs_file_path = os.path.join(script_dir, data_path)
     print "downloading with urllib2"
     data = response.read()
-    with open(data_path, "wb") as code:
+    with open(abs_file_path, "wb") as code:
         code.write(data)
     print "done!"
     code.close()
 
     # End the selenium webdriver
     driver.quit()
+
+    # Now we make sure we stop the display
+    display.stop()
 
 
 def process_block(block):
@@ -149,9 +160,12 @@ def process_block(block):
 
 
 def get_column_from_raw_data(data_file, column):
-    fh = open(data_file, 'r')
+    script_dir = os.path.dirname(__file__)
+    abs_file_path = os.path.join(script_dir, data_file)
+    fh = open(abs_file_path, 'r')
     header = fh.readline()
     data_rows = fh.readlines()
+    fh.close()
     header = str(header).replace('"', '')
     header = header.lower()
     header_list = header.split("\t")  # each entry in the list is separated by a tab

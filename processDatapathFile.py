@@ -57,9 +57,11 @@ def process_logical_block(block, blocks):
 #                                  MAIN                                       #
 ###############################################################################
 if __name__ == '__main__':
-    fileName = 'datapathBlocks1921681105.txt'
+    script_dir = os.path.dirname(__file__)
+    rel_path = "datapathTemp/datapathBlocks1921681105.txt"
+    abs_file_path = os.path.join(script_dir, rel_path)
     # Get the blocks from the datapath file into a list of dictionaries
-    blocks = get_blocks_from_datapath_file(fileName)
+    blocks = get_blocks_from_datapath_file(abs_file_path)
     # Now we are going to loop over each block in the list
     for block in blocks:
         # Check to see if this block is a website or logical block

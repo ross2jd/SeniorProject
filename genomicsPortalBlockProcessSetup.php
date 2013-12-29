@@ -16,7 +16,7 @@ if ($_SESSION['fileID'].length > 0)
     $fileID = $_SESSION['fileID'];
     
 }
-$datapathBlocksFile = "datapathTemp/datapathBlocks".$fileID.".txt" or exit("Unable to open file!");
+$datapathBlocksFile = "python_scripts/datapathTemp/datapathBlocks".$fileID.".txt" or exit("Unable to open file!");
 if (file_exists($datapathBlocksFile)) {
   $fh = fopen($datapathBlocksFile, 'a');
 } else {
