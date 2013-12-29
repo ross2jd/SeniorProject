@@ -3,6 +3,7 @@ __author__ = 'Jordan Ross'
 import os
 import genomicsPortalBlock
 import intersectBlock
+import sys
 
 
 def get_blocks_from_datapath_file(file_name):
@@ -57,8 +58,9 @@ def process_logical_block(block, blocks):
 #                                  MAIN                                       #
 ###############################################################################
 if __name__ == '__main__':
+    rel_path = sys.argv[1]
     script_dir = os.path.dirname(__file__)
-    rel_path = "datapathTemp/datapathBlocks1921681105.txt"
+    #rel_path = "datapathTemp/datapathBlocks1921681105.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
     # Get the blocks from the datapath file into a list of dictionaries
     blocks = get_blocks_from_datapath_file(abs_file_path)

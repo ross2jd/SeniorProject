@@ -3,7 +3,7 @@
 // It is going to take all the information for the $_GET array and put it into a file. This file is
 // going to have a unique ID that is assigned when the user first visits the website.
 session_start();
-if ($_SESSION['fileID'].length > 0)
+if (isset($_SESSION['fileID']))
 {
     // an existing fileID is present and it must be used!
     $fileID = $_SESSION['fileID'];
@@ -23,13 +23,12 @@ if (file_exists($datapathBlocksFile)) {
   $fh = fopen($datapathBlocksFile, 'w');
 }
 // We need to keep track of how many blocks need data files so they have unique names
-if ($_SESSION['lastBlockNumber'].length > 0)
+if (isset($_SESSION['lastBlockNumber']))
 {
     $lastBlockNumber = $_SESSION['lastBlockNumber'];
     $_SESSION['lastBlockNumber'] += 1;
 } else
 {
-    $_SESSION['lastBlockNumber'] = array();
     $_SESSION['lastBlockNumber'] = 0;
     $lastBlockNumber = $_SESSION['lastBlockNumber'];
     $_SESSION['lastBlockNumber'] += 1;

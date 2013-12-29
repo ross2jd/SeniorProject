@@ -3,7 +3,7 @@
 // It is going to take all the information for the $_GET array and put it into a file. This file is
 // going to have a unique ID that is assigned when the user first visits the website.
 session_start();
-if ($_SESSION['fileID'].length > 0)
+if (isset($_SESSION['fileID']))
 {
     // an existing fileID is present and it must be used!
     $fileID = $_SESSION['fileID'];
@@ -11,7 +11,6 @@ if ($_SESSION['fileID'].length > 0)
 {
     // an session file ID does not exist, we should create one.
     // we are going to use the users IP address
-    $_SESSION['fileID'] = array();
     $_SESSION['fileID'] = str_replace(".","",$_SERVER['REMOTE_ADDR']);
     $fileID = $_SESSION['fileID'];
     

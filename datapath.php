@@ -12,48 +12,53 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <style>
-    body { font-size: 62.5%; }
-    fieldset { padding:0; border:0; margin-top:25px; }
-    h1 { font-size: 1.2em; margin: .6em 0; }
-    div#users-contain { width: 350px; margin: 20px 0; }
-    div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
-    div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
-    .ui-dialog .ui-state-error { padding: .3em; }
-    .validateTips { border: 1px solid transparent; padding: 0.3em; }
-  </style>
-  <script src="shapes.js"></script>
-  <script>
-  $(function() {
-    var answer;
-    $( "#dialog-form" ).dialog({
-      autoOpen: false,
-      height: 450,
-      width: 500,
-      modal: true,
-      buttons: {
-        "Add selected block": function() {
-            $("input").each(function(){
-                (this.checked == true) ? answer = $(this).val() : null;
-            });
-            $( this ).dialog( "close" );
-        },
-        Cancel: function() {
-            answer = null;
-            $( this ).dialog( "close" );
-        }
-        },
-        close: function(event, ui) {
-            if (answer == "Genomics Portal Block") {
-                // Then we want to go to edit Genomics Portal Block page
-                window.location.href = "genomicsPortalBlockSetup_step1.php";
-            }
-            else if (answer == "Intersect Block") {
-                // Then we want to go to the intersect block page
-                window.location.href = "intersectBlockSetup_step1.php";
-            }
-        }
-    });
+    <style>
+        body { font-size: 62.5%; }
+        fieldset { padding:0; border:0; margin-top:25px; }
+        h1 { font-size: 1.2em; margin: .6em 0; }
+        div#users-contain { width: 350px; margin: 20px 0; }
+        div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+        div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+        .ui-dialog .ui-state-error { padding: .3em; }
+        .validateTips { border: 1px solid transparent; padding: 0.3em; }
+    </style>
+    <script src="shapes.js"></script>
+    <script>
+    function compileAndRun()
+    {
+        window.location.href = "compileAndRun.php"
+    }
+    
+    $(function() {
+      var answer;
+      $( "#dialog-form" ).dialog({
+        autoOpen: false,
+        height: 450,
+        width: 500,
+        modal: true,
+        buttons: {
+          "Add selected block": function() {
+              $("input").each(function(){
+                  (this.checked == true) ? answer = $(this).val() : null;
+              });
+              $( this ).dialog( "close" );
+          },
+          Cancel: function() {
+              answer = null;
+              $( this ).dialog( "close" );
+          }
+          },
+          close: function(event, ui) {
+              if (answer == "Genomics Portal Block") {
+                  // Then we want to go to edit Genomics Portal Block page
+                  window.location.href = "genomicsPortalBlockSetup_step1.php";
+              }
+              else if (answer == "Intersect Block") {
+                  // Then we want to go to the intersect block page
+                  window.location.href = "intersectBlockSetup_step1.php";
+              }
+          }
+      });
  
     $( "#add-block-button" )
       .button()
@@ -126,7 +131,7 @@
         </table>
         <div class="data_path_wrapper">
                 <?php
-                clearSession();
+                //clearSession();
                     if (isset($_GET['block']) && isset($_GET['name']))
                     {
                         // We have a new block to place!
@@ -152,6 +157,7 @@
                 ?>
         </div>
         <?php
+        print_r($_SESSION);
         if (isset($_SESSION['placedBlocks']))
         {
             // We have at least one block, display the run button
@@ -159,7 +165,7 @@
             <table class='push_buttons_table'>
                 <tr>
                     <td>
-                        <input id='add-block-button' class='push_button_left' type='button' value='Run' />
+                        <input id='add-block-button' class='push_button_left' type='button' onclick='compileAndRun()' value='Run' />
                     </td<
                 </tr>
             </table>
