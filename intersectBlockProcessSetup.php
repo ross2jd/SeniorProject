@@ -2,8 +2,7 @@
 // This PHP script should only run after the last step of the intersect block setup is completed.
 // It is going to take all the information for the $_GET array and put it into a file. This file is
 // going to have a unique ID that is assigned when the user first visits the website.
-
-print_r($_SESSION);
+session_start();
 if ($_SESSION['fileID'].length > 0)
 {
     // an existing fileID is present and it must be used!
@@ -23,13 +22,16 @@ if (file_exists($datapathBlocksFile)) {
 } else {
   $fh = fopen($datapathBlocksFile, 'w');
 }
+
 // Write the header to the block data
-$header = "--Intersect--".PHP_EOL;
+$header = "block^&^Intersect".PHP_EOL;
+$blockType = "blockCat^&^logical".PHP_EOL;
 fwrite($fh, $header);
+fwrite($fh, $blockType);
 // Use a foreach here write to the file...
 foreach($_GET as $name=>$value)
 {
-    $line = $name.":".$value.PHP_EOL;
+    $line = $name."^&^".$value.PHP_EOL;
     fwrite($fh, $line);
 }
 // Write the footer to the block data

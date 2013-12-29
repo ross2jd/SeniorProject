@@ -59,6 +59,7 @@
             var foldchange_tag = document.getElementsByName("foldchange");
             var ifCluster_tag = document.getElementsByName("ifCluster");
             var output_tag = document.getElementsByName("output");
+            var output_index = getRadioIndex(output_tag);
             // XXX: Add in validation for any missing entries!
             
             // Now we create the URL to pass to the PHP script.
@@ -66,7 +67,7 @@
             url += "&includeORexclude="+incORex_tags[incOrEx_index].value+"&prop="+prop_tags[prop_index].value;
             url += "&filterchk="+checkedBoxes+"&BlockName="+blockName_tag[0].value+"&p_or_q_value="+p_or_q_value_tag[0].value;
             url += "&sigcutoff="+sigcutoff_tag[0].value+"&foldchange="+foldchange_tag[0].value+"&ifCluster="+ifCluster_tag[0].value;
-            url += "&output="+output_tag[0].value;
+            url += "&output="+output_tag[output_index].value;
             window.location.href = url;
         }
     </script>
