@@ -64,6 +64,6 @@ foreach($_GET as $name=>$value)
 $footer = "****".PHP_EOL;
 fwrite($fh, $footer);
 fclose($fh);
-$url = "datapath.php?block=generic_result&name=".$_GET['BlockName'];
+$url = "datapath.php";
 header( "Location: $url" );
 ?>

@@ -14,9 +14,10 @@
         {
             var blockType= document.getElementsByName("blockType")[0].value;
             var blockName = "&blockName="+document.getElementsByName("blockName")[0].value;
+            var BlockName = "&BlockName="+document.getElementsByName("BlockName")[0].value;
             
             var url = "genericResultsBlockProcessSetup.php?blockType="+blockType;
-            url += blockName;
+            url += blockName + BlockName;
             window.location.href = url;
         }
     </script>
@@ -102,6 +103,15 @@
             <tr><td>
             <label style='padding-right: 20px;'>Enter the name for input</label></td>
             <td><input type='text' name='blockName' value=''>
+            </td></tr>
+            ");
+        
+        // No display the form for getting the name for this block
+        // Now display the form for getting the block name.
+        echo("
+            <tr><td>
+            <label style='padding-right: 20px;'>Enter a name for this block</label></td>
+            <td><input type='text' name='BlockName' value=''>
             </td></tr>
             ");
     ?>

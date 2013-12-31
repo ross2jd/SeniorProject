@@ -50,6 +50,6 @@ foreach($_GET as $name=>$value)
 $footer = "****".PHP_EOL;
 fwrite($fh, $footer);
 fclose($fh);
-$url = "datapath.php?block=genomics_portal&name=".$_GET['BlockName'];
+$url = "datapath.php";
 header( "Location: $url" );
 ?>

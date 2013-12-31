@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
     include 'clearSession.php';
+    include 'functions.php';
     session_start();
 ?>
 <html lang="en-US">
@@ -22,11 +23,37 @@
         .ui-dialog .ui-state-error { padding: .3em; }
         .validateTips { border: 1px solid transparent; padding: 0.3em; }
     </style>
-    <script src="shapes.js"></script>
     <script>
+    function get_block_positions() {
+        var elements = document.getElementsByName("drag_blocks");
+        if (elements.length == 0) {
+            return "";
+        }
+        var values = "?";
+        for (var i =0; i < elements.length; i++) {
+            var style = window.getComputedStyle(elements[i]);
+            var top = style.getPropertyValue('top');
+            var left = style.getPropertyValue('left');
+            var id = elements[i].id;
+            values += "&" + id + "="+ top + "," + left;
+        }
+        return values;
+    }
     function compileAndRun()
     {
-        window.location.href = "compileAndRun.php"
+        goToGivenPage("compileAndRun.php");
+    }
+    function goToGivenPage(pageName) {
+        var string = get_block_positions();
+        if (string == "") {
+            // No blocks are placed.
+            window.location.href = pageName;
+        }
+        else
+        {
+            var nextPage = "&nextPage="+pageName;
+            window.location.href = "updateDatapathFile.php" + string + nextPage;
+        }
     }
     
     $(function() {
@@ -49,17 +76,18 @@
           }
           },
           close: function(event, ui) {
+              var string = get_block_positions();
               if (answer == "Genomics Portal Block") {
                   // Then we want to go to edit Genomics Portal Block page
-                  window.location.href = "genomicsPortalBlockSetup_step1.php";
+                  goToGivenPage("genomicsPortalBlockSetup_step1.php");
               }
               else if (answer == "Intersect Block") {
                   // Then we want to go to the intersect block page
-                  window.location.href = "intersectBlockSetup_step1.php";
+                  goToGivenPage("intersectBlockSetup_step1.php");
               }
               else if (answer == "Generic Results Block") {
                 // Then we want to go to the generic results block page
-                window.location.href = "genericResultsBlockSetup_step1.php"
+                goToGivenPage("genericResultsBlockSetup_step1.php");
               }
           }
       });
@@ -76,7 +104,7 @@
   </script>
 </head>
 <div class="wrapper"> <!-- The wrapper for the page -->
-<body onload="init()">
+<body>
  
 <div id="dialog-form" title="Add Block">
     <p>Select a block that you would like to add to your data flow.</p>
@@ -135,33 +163,37 @@
         </table>
         <div class="data_path_wrapper">
                 <?php
-                //clearSession();
-                    if (isset($_GET['block']) && isset($_GET['name']))
+                    $fileID = $_SESSION['fileID'];
+                    $blocks = make_assoc_array_from_file($fileID);
+                    if (isset($blocks))
                     {
-                        // We have a new block to place!
-                        $newBlock = "<div class='draggable ui-draggable ".$_GET['block']."_block'>".$_GET['name']."</div>";
-                        if (count($_SESSION['placedBlocks']) <= 0)
+                        $blocksToPlace = array();
+                        for ($i = 0; $i < count($blocks); $i++)
                         {
-                            // This is our first block so when need to initiailize the array
-                            $_SESSION['placedBlocks'] = array();
+                            // Loop through the array of blocks that we have so we can place them.
+                            $blockName = get_block_name($blocks[$i]);
+                            $blockClassName = get_block_class_name($blocks[$i]);
+                            $blockIdName = get_block_id_name($blockName);
+                            $x_pos = get_block_x_position($blocks[$i]);
+                            $y_pos = get_block_y_position($blocks[$i]);
+                            $newBlock = "<div class='draggable ui-draggable ".$blockClassName."' id='".$blockIdName."' name='drag_blocks'";
+                            $newBlock .= "style='left: ".$x_pos."; top: ".$y_pos.";'>".$blockName."</div>";
+                            array_push($blocksToPlace, $newBlock);
                         }
-                        array_push($_SESSION['placedBlocks'], $newBlock);
+                        foreach($blocksToPlace as $placedBlock)
+                        {
+                            echo $placedBlock;
+                        }
+                        $_SESSION['placedBlocks'] = array();
+                        $_SESSION['placedBlocks'] = $blocks;
                     }
-                    // Canvas area
-                    //echo "<div id='canvas'>";
-                    //foreach($_SESSION['placedBlocks'] as $blocks)
-                    //{
-                    //    echo $blocks;
-                    //}
-                    //echo "</div>";
-                    echo("
-                        <canvas id='canvas1'>
-                        </canvas>"
-                    );
+                    else
+                    {
+                        clearSession();
+                    }
                 ?>
         </div>
         <?php
-        print_r($_SESSION);
         if (isset($_SESSION['placedBlocks']))
         {
             // We have at least one block, display the run button

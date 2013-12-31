@@ -37,6 +37,6 @@ foreach($_GET as $name=>$value)
 $footer = "****".PHP_EOL;
 fwrite($fh, $footer);
 fclose($fh);
-$url = "datapath.php?block=intersect&name=".$_GET['BlockName'];
+$url = "datapath.php";
 header( "Location: $url" );
 ?>
