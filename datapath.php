@@ -24,6 +24,10 @@
         .validateTips { border: 1px solid transparent; padding: 0.3em; }
     </style>
     <script>
+    function show_html_in_dialog() {
+        var text = document.getElementsByName("results_alert")[0].value;
+        alert(text);
+    }
     function get_block_positions() {
         var elements = document.getElementsByName("drag_blocks");
         if (elements.length == 0) {
@@ -177,7 +181,16 @@
                             $x_pos = get_block_x_position($blocks[$i]);
                             $y_pos = get_block_y_position($blocks[$i]);
                             $newBlock = "<div class='draggable ui-draggable ".$blockClassName."' id='".$blockIdName."' name='drag_blocks'";
-                            $newBlock .= "style='left: ".$x_pos."; top: ".$y_pos.";'>".$blockName."</div>";
+                            $newBlock .= "style='left: ".$x_pos."; top: ".$y_pos.";' ";
+                            if (strcmp($blocks[$i]['block'],'Generic Result') == 0)
+                            {
+                                // We have a results block and we want to add a JS function to open up some data. We also need to read in the data
+                                // to an array.
+                                $html_format = format_text_results_as_html($blocks[$i]);
+                                echo("<input type='hidden' name='results_alert' value='".$html_format."'></input>");
+                                $newBlock .= "ondblclick='show_html_in_dialog()'";
+                            }
+                            $newBlock .= ">".$blockName."</div>";
                             array_push($blocksToPlace, $newBlock);
                         }
                         foreach($blocksToPlace as $placedBlock)

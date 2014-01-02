@@ -20,4 +20,6 @@
         usleep(100000);
     }
     pclose($pid);
+    $url = "datapath.php";
+    header( "Location: $url" );
 ?>

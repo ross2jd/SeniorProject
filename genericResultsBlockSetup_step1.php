@@ -54,7 +54,7 @@
 <body>
     <div class="page_header">
         <img style="float: right; margin-left: auto; margin-right: 5px;" src="Images\help_icon.png" />
-        <h1 class="page_title">Intersect Block Setup</h1>
+        <h1 class="page_title">Generic Results Block Setup</h1>
         <ul class="navBarList">
             <li class="navBar" id="step1">Step 1</li>     
         </ul>

@@ -100,4 +100,24 @@ function find_block_index_by_name($name, $blocks)
     }
     return -1;
 }
+
+function format_text_results_as_html($block)
+{
+    $resultsFile = $block['resultsFile'];
+    $filePath = 'python_scripts/'.$resultsFile;
+    if (file_exists($filePath)) {
+        $file = fopen($filePath, 'r');
+    } else {
+        $html = "You must click run before you see data!";
+        return $html;
+    }
+    $html = "";
+    while (! feof($file))
+    {
+        $line = fgets($file);
+        $html .= $line;
+    }
+    $html .= "\n".$filePath;
+    return $html;
+}
 ?>
