@@ -120,4 +120,94 @@ function format_text_results_as_html($block)
     $html .= "\n".$filePath;
     return $html;
 }
+
+function block_has_input_properties($block)
+{
+    if ($block['block'] == 'Generic Result' || $block['block'] == 'Intersect')
+    {
+        return true;
+    }
+    return false;
+}
+
+function get_block_input_names($block)
+{
+    $blockNames = array();
+    if ($block['block'] == 'Intersect')
+    {
+        for ($i = 1; $i <= $block['numInputs']; $i++)
+        {
+            array_push($blockNames, $block['blockName'.$i]);
+        }
+    }
+    elseif ($block['block'] == 'Generic Result')
+    {
+        array_push($blockNames, $block['blockName']);
+    }
+    return $blockNames;
+}
+
+function draw_line($x1, $x2, $y1, $y2)
+{
+    if ($y1 > $y2)
+    {
+        $heightDiv = $y1-$y2;
+        $widthDiv = abs($x1-$x2);
+        $line = "<div style='left: ".$x2."px; top: ".$y2."px; width: ".$widthDiv."px; height: ".$heightDiv."px; position: absolute;'>";
+        $line .= "<svg width='100%' height='100%'>";
+        $line .= "<line x1='100%' y1='100%' x2='0' y2='0' stroke-width='2' stroke='black'/>";
+    }
+    else
+    {
+        $heightDiv = $y2-$y1;
+        if ($heightDiv == 0)
+            $heightDiv = 2;
+        $widthDiv = abs($x1-$x2);
+        $adjustedY2 = $y2-$heightDiv;
+        $line = "<div style='left: ".$x2."px; top: ".$adjustedY2."px; width: ".$widthDiv."px; height: ".$heightDiv."px; position: absolute;'>";
+        $line .= "<svg width='100%' height='100%'>";
+        $line .= "<line x1='100%' y1='0' x2='0' y2='100%' stroke-width='2' stroke='black'/>";
+    }
+    $line .=  "Sorry, your browser does not support inline SVG.";
+    $line .= "</svg>";
+    $line .= "</div>";
+    echo($line);
+}
+
+function draw_connector_lines_for_blocks($blocks)
+{
+    $blockHeight = 125;
+    $blockWidth = 125;
+    for ($i = 0; $i < count($blocks); $i++)
+    {
+        $curBlock = $blocks[$i];
+        // Loop through the array of blocks that we have so we can draw lines
+        if (block_has_input_properties($curBlock))
+        {
+            // This block takes an input so we are going to draw a line between this block
+            // and the inputted block.
+            $top = intval(str_replace("px", "", get_block_y_position($curBlock)));
+            $left = intval(str_replace("px", "", get_block_x_position($curBlock)));
+            $circleL_Y = $top + $blockHeight/2;
+            $circleL_X = $left;
+            $blockNames = get_block_input_names($curBlock);
+            if (!$blockNames)
+            {
+                // There are no inputs!
+                return;
+            }
+            for ($j = 0; $j < count($blockNames); $j++)
+            {
+                $index = find_block_index_by_name($blockNames[$j],$blocks);
+                if ($index == -1)
+                    return;
+                $input_top = intval(str_replace("px", "", get_block_y_position($blocks[$index])));
+                $input_left = intval(str_replace("px", "", get_block_x_position($blocks[$index])));
+                $circleR_X = $input_left + $blockWidth;
+                $circleR_Y = $input_top + $blockHeight/2;
+                draw_line($circleL_X, $circleR_X+2, $circleL_Y, $circleR_Y);
+            }
+        }
+    }
+}
 ?>

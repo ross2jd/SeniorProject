@@ -197,6 +197,11 @@
                         {
                             echo $placedBlock;
                         }
+                        if (count($blocksToPlace) > 1)
+                        {
+                            // More than one block has been placed on the datapath so we should now draw lines (if needed)
+                            draw_connector_lines_for_blocks($blocks);
+                        }
                         $_SESSION['placedBlocks'] = array();
                         $_SESSION['placedBlocks'] = $blocks;
                     }
