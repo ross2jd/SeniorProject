@@ -24,9 +24,17 @@
         .validateTips { border: 1px solid transparent; padding: 0.3em; }
     </style>
     <script>
-    function show_html_in_dialog() {
-        var text = document.getElementsByName("results_alert")[0].value;
-        alert(text);
+    function go_to_generic_results_ouput() {
+        var file_name = document.getElementsByName("results_alert")[0].value;
+        var url = "viewGenericResultsOutput.php?file="+file_name;
+        if (file_name == "")
+        {
+        	alert("You must compile and run the datapath before viewing results!");
+        }
+        else
+        {
+        	window.location.href = url;
+        }
     }
     function get_block_positions() {
         var elements = document.getElementsByName("drag_blocks");
@@ -186,9 +194,9 @@
                             {
                                 // We have a results block and we want to add a JS function to open up some data. We also need to read in the data
                                 // to an array.
-                                $html_format = format_text_results_as_html($blocks[$i]);
-                                echo("<input type='hidden' name='results_alert' value='".$html_format."'></input>");
-                                $newBlock .= "ondblclick='show_html_in_dialog()'";
+                                $resultsFile = $block['resultsFile'];
+                                echo("<input type='hidden' name='results_file' value='".$resultsFile."'></input>");
+                                $newBlock .= "ondblclick='go_to_generic_results_ouput()'";
                             }
                             $newBlock .= ">".$blockName."</div>";
                             array_push($blocksToPlace, $newBlock);
