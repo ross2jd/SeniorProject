@@ -25,7 +25,7 @@
     </style>
     <script>
     function go_to_generic_results_ouput() {
-        var file_name = document.getElementsByName("results_alert")[0].value;
+        var file_name = document.getElementsByName("results_file")[0].value;
         var url = "viewGenericResultsOutput.php?file="+file_name;
         if (file_name == "")
         {
@@ -161,7 +161,6 @@
 <!-- This is the code that is displayed when first visiting -->
     <div class="page_header">
         <img style="float: right; margin-left: auto; margin-right: 5px;" src="Images\help_icon.png" />
-        <a href="https://docs.google.com/forms/d/1NVWJW4bce8S8Ky6LjhYaRh9UQk4R3sCD85qL--KY7-o/viewform">Bug/Functionality Submission</a>
         <h1 class="page_title">Welcome to Web Bio Blocks</h1>
     </div>
     <div class="content_wrappter"><!-- The wrapper for the content on the page -->
@@ -195,7 +194,7 @@
                             {
                                 // We have a results block and we want to add a JS function to open up some data. We also need to read in the data
                                 // to an array.
-                                $resultsFile = $block['resultsFile'];
+                                $resultsFile = $blocks[$i]['resultsFile'];
                                 echo("<input type='hidden' name='results_file' value='".$resultsFile."'></input>");
                                 $newBlock .= "ondblclick='go_to_generic_results_ouput()'";
                             }
@@ -236,6 +235,7 @@
         }
         ?>
     </div>
+    <a href="https://docs.google.com/forms/d/1NVWJW4bce8S8Ky6LjhYaRh9UQk4R3sCD85qL--KY7-o/viewform" target="_blank">Bug/Functionality Submission</a>
 </body>
 </div>
 </html>

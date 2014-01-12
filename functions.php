@@ -101,9 +101,8 @@ function find_block_index_by_name($name, $blocks)
     return -1;
 }
 
-function format_text_results_as_html($block)
+function format_text_results_as_html($resultsFile)
 {
-    $resultsFile = $block['resultsFile'];
     $filePath = 'python_scripts/'.$resultsFile;
     if (file_exists($filePath)) {
         $file = fopen($filePath, 'r');
@@ -111,13 +110,13 @@ function format_text_results_as_html($block)
         $html = "You must click run before you see data!";
         return $html;
     }
-    $html = "";
+    $html = "<table>";
     while (! feof($file))
     {
         $line = fgets($file);
-        $html .= $line;
+        $html .= "<tr><td>".str_replace("\n","",$line)."</td></tr>";
     }
-    $html .= "\n".$filePath;
+    $html .= "</table><br /><a href='".$filePath."'>View Raw Data File</a>";
     return $html;
 }
 
