@@ -161,6 +161,7 @@
 <!-- This is the code that is displayed when first visiting -->
     <div class="page_header">
         <img style="float: right; margin-left: auto; margin-right: 5px;" src="Images\help_icon.png" />
+        <a href="https://docs.google.com/forms/d/1NVWJW4bce8S8Ky6LjhYaRh9UQk4R3sCD85qL--KY7-o/viewform">Bug/Functionality Submission</a>
         <h1 class="page_title">Welcome to Web Bio Blocks</h1>
     </div>
     <div class="content_wrappter"><!-- The wrapper for the content on the page -->
