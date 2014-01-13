@@ -222,6 +222,11 @@
         </tr>
     </table>
     </div>
+    <div class='page_footer'>
+        <a href='https://docs.google.com/forms/d/1NVWJW4bce8S8Ky6LjhYaRh9UQk4R3sCD85qL--KY7-o/viewform' target='_blank'>
+            <img style='float: right; margin-left: auto; margin-right: 5px; margin-top: 10px;' src='Images\bug.png' height='50' width='50'>
+        </a>
+    </div>
 </body>
 </div>
 </html>

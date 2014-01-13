@@ -6,9 +6,9 @@
 ?>
 <html lang="en-US">
 <head>
-    <meta charset="utf-8">
-    <title>Web Bio Blocks</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <meta charset='utf-8'>
+    <title>Welcome to Web Bio Blocks</title>
+    <link rel='stylesheet' type='text/css' href='main.css'>
     <link rel="stylesheet" type="text/css" href="blocks.css">  
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -159,9 +159,10 @@
 </div>
 
 <!-- This is the code that is displayed when first visiting -->
-    <div class="page_header">
-        <img style="float: right; margin-left: auto; margin-right: 5px;" src="Images\help_icon.png" />
-        <h1 class="page_title">Welcome to Web Bio Blocks</h1>
+
+    <div class='page_header'>
+        <img style='float: right; margin-left: auto; margin-right: 5px;' src='Images\help_icon.png' />
+        <h1 class='page_title'>Welcome to Web Bio Blocks</h1>
     </div>
     <div class="content_wrappter"><!-- The wrapper for the content on the page -->
         <table class="push_buttons_table">
@@ -235,7 +236,11 @@
         }
         ?>
     </div>
-    <a href="https://docs.google.com/forms/d/1NVWJW4bce8S8Ky6LjhYaRh9UQk4R3sCD85qL--KY7-o/viewform" target="_blank">Bug/Functionality Submission</a>
+    <div class='page_footer'>
+        <a href='https://docs.google.com/forms/d/1NVWJW4bce8S8Ky6LjhYaRh9UQk4R3sCD85qL--KY7-o/viewform' target='_blank'>
+            <img style='float: right; margin-left: auto; margin-right: 5px; margin-top: 10px;' src='Images\bug.png' height='50' width='50'>
+        </a>
+    </div>
 </body>
 </div>
 </html>
