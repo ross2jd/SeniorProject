@@ -101,6 +101,10 @@
                 // Then we want to go to the generic results block page
                 goToGivenPage("genericResultsBlockSetup_step1.php");
               }
+              else if (answer == "DAVID Block") {
+                // Then we want to go to the DAVID block page
+                goToGivenPage("davidBlockSetup_step1.php");
+              }
           }
       });
  

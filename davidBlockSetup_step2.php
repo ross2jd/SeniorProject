@@ -12,21 +12,16 @@
         }
         function goBackToStep1()
         {
-            window.location.href = "intersectBlockSetup_step1.php";
+            window.location.href = "davidBlockSetup_step1.php";
         }
         function getSelectedValues()
         {
-            var numInputsTag = document.getElementsByName("numInputs");
-            var numInputs = numInputsTag[0].value;
-            var blockTypeTag = document.getElementsByName("blockType");
-            var blockType = blockTypeTag[0].value;
+            var blockNamesTag = document.getElementsByName("blockInput");
+            var blockName = blockNamesTag[0].value;
+            var identifierTag = document.getElementsByName("identifier");
+            var identifier = identifierTag[0].value;
             
-            var blockNamesUrlString = "";
-            for (var i = 1; i <= numInputs; i++)
-            {
-                blockNamesUrlString += "&blockName"+i+"="+document.getElementsByName("blockName"+i)[0].value;
-            }
-            var url = "intersectBlockSetup_step3.php?numInputs="+numInputs+blockNamesUrlString+"&blockType="+blockType;
+            var url = "davidBlockSetup_step3.php?blockInput="+blockName+"&identifier="+identifier;
             window.location.href = url;
         }
     </script>
@@ -84,21 +79,21 @@
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
         }
         
-        $result = mysqli_query($con, "SELECT * FROM supported_blocks");
+        $result = mysqli_query($con, "SELECT * FROM david_block_identifer");
         if ( false===$result ) {
             printf("error: %s\n", mysqli_error($con));
         }
         
         echo("
                 <tr><td>
-                <label style='padding-right: 20px;'>Select the block type for the succeeding names:</label>
+                <label style='padding-right: 20px;'>Select the identifier for the gene names</label>
                 </td>
-                <td><select name='blockType'>
+                <td><select name='identifier'>
             ");
         
         while ($row = mysqli_fetch_assoc($result))
         {
-            echo("<option value='".$row['name']."'>".$row['name']."</option>");
+            echo("<option value='".$row['identifier']."'>".$row['identifier']."</option>");
         }
         
         echo ("</select></td></tr>");
@@ -109,18 +104,9 @@
         // Close the connection
         mysqli_close($con);
         
-        // Now display the form for getting the block names.
-        $numInputs = $_GET['numInputs'];
-        echo ("<input type='hidden' name='numInputs' value='".$numInputs."'>");
-        for ($i = 1; $i <= $numInputs; $i++)
-        {
-            echo("
-                    <tr><td>
-                    <label style='padding-right: 20px;'>Enter the name for input ".$i."</label></td>
-                    <td><input type='text' name='blockName".$i."' value=''>
-                    </td></tr>
-                 ");
-        }
+        $blockName = $_GET['blockInput'];
+        echo ("<input type='hidden' name='blockInput' value='".$blockName."'>");
+        
     ?>
     </table>
     </div>
