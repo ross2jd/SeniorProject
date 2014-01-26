@@ -35,7 +35,7 @@ function make_assoc_array_from_file($fileID)
 
 function get_block_name($block)
 {
-    if ($block['block'] == 'Genomics' || $block['block'] == 'Generic Result')
+    if ($block['block'] == 'Genomics' || $block['block'] == 'Generic Result' || $block['block'] == 'DAVID')
     {
         return $block['BlockName'];
     }
@@ -120,9 +120,22 @@ function format_text_results_as_html($resultsFile)
     return $html;
 }
 
+function get_url_from_file($dataFile)
+{
+    $filePath = 'python_scripts/'.$dataFile;
+    if (file_exists($filePath)) {
+        $file = fopen($filePath, 'r');
+    } else {
+        $url = "";
+        return $url;
+    }
+    $url = fgets($file);
+    return $url;
+}
+
 function block_has_input_properties($block)
 {
-    if ($block['block'] == 'Generic Result' || $block['block'] == 'Intersect')
+    if ($block['block'] == 'Generic Result' || $block['block'] == 'Intersect' || $block['block'] == 'DAVID')
     {
         return true;
     }
@@ -142,6 +155,10 @@ function get_block_input_names($block)
     elseif ($block['block'] == 'Generic Result')
     {
         array_push($blockNames, $block['blockName']);
+    }
+    elseif ($block['block'] == 'DAVID')
+    {
+        array_push($blockNames, $block['blockInput']);
     }
     return $blockNames;
 }

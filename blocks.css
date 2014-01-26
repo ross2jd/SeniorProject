@@ -44,3 +44,18 @@
     cursor: move;
     position: absolute;
 }
+
+.DAVID_Block
+{
+    border: solid thin #000000;
+    background: #00FFFF;
+    text-align: center;
+    font-size: medium;
+    height: 125px;
+    width: 125px;
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0 auto;
+    cursor: move;
+    position: absolute;
+}

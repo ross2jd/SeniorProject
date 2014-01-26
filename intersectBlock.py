@@ -47,12 +47,13 @@ def process_block(intersect_block, blocks):
     # We want to cycle through all the website blocks and check and see which ones are completed.
     for block in blocks:
         if block['blockCat'] == 'website':
-            if block['BlockName'] in block_names:
-                # This is one of the inputs we want to check and see if it is completed
-                # Remove the block with this name from the blocks waiting list
-                blocks_waiting.pop(blocks_waiting.index(block['BlockName']))
-                # Get the data file path
-                data_files.append(block['dataFile'])
+            if block['block'] == 'Genomics':
+                if block['BlockName'] in block_names:
+                    # This is one of the inputs we want to check and see if it is completed
+                    # Remove the block with this name from the blocks waiting list
+                    blocks_waiting.pop(blocks_waiting.index(block['BlockName']))
+                    # Get the data file path
+                    data_files.append(block['dataFile'])
     if not blocks_waiting:
         # All of our blocks have completed (i.e the data is available)
         data = intersect_data(intersect_block, data_files)

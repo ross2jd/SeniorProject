@@ -4,6 +4,7 @@ import os
 import genomicsPortalBlock
 import intersectBlock
 import genericResultsBlock
+import davidBlock
 import sys
 
 
@@ -29,11 +30,14 @@ def get_blocks_from_datapath_file(file_name):
     return blocks
 
 
-def process_website_block(block):
+def process_website_block(block, blocks):
     # First thing we should do is see what block it is
     if block['block'] == 'Genomics':
         # We have a genomics website block, we should call its respective function
         genomicsPortalBlock.process_block(block)
+    elif block['block'] == 'DAVID':
+        # We have a DAVID website block, we should call its respective function
+        davidBlock.process_block(block, blocks)
     else:
         # An unsupported block was found!
         print "Error:2:Unsupported block!"
@@ -74,7 +78,7 @@ if __name__ == '__main__':
         blockCategory = block['blockCat']
         if blockCategory == 'website':
             # The current block is a website block, process accordingly
-            completed = process_website_block(block)
+            completed = process_website_block(block, blocks)
             block.update({'completed': completed})
         elif blockCategory == 'logical':
             # The current block is a logical block, process accordingly

@@ -16,12 +16,12 @@
             var listType = listTypeTag[0].value;
             var blockInputTag = document.getElementsByName("blockInput");
             var blockInput = blockInputTag[0].value;
-            var blockNameTag = document.getElementsByName("blockName");
+            var blockNameTag = document.getElementsByName("BlockName");
             var blockName = blockNameTag[0].value;
             var identifierTag = document.getElementsByName("identifier");
             var identifier = identifierTag[0].value;
             
-            var url = "davidBlockProcessSetup.php?listType="+listType+"&blockName="+blockName+"&identifier="+identifier+"&blockInput="+blockInput;
+            var url = "davidBlockProcessSetup.php?listType="+listType+"&BlockName="+blockName+"&identifier="+identifier+"&blockInput="+blockInput;
             window.location.href = url;
         }
     </script>
@@ -100,7 +100,7 @@
         ?>
     </div>
     <label style="padding-right: 20px;">Enter the name you want to give this block</label>
-    <input type="text" name="blockName" value="">
+    <input type="text" name="BlockName" value="">
     </div>
     <table class="push_buttons_table" style="margin-top: 20px;">
         <tr>

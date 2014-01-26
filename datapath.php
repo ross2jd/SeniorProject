@@ -24,6 +24,11 @@
         .validateTips { border: 1px solid transparent; padding: 0.3em; }
     </style>
     <script>
+    function go_to_david() {
+        var url = document.getElementsByName("david_url")[0].value;
+        var win=window.open(url, '_blank');
+        win.focus();
+    }
     function go_to_generic_results_ouput() {
         var file_name = document.getElementsByName("results_file")[0].value;
         var url = "viewGenericResultsOutput.php?file="+file_name;
@@ -202,6 +207,17 @@
                                 $resultsFile = $blocks[$i]['resultsFile'];
                                 echo("<input type='hidden' name='results_file' value='".$resultsFile."'></input>");
                                 $newBlock .= "ondblclick='go_to_generic_results_ouput()'";
+                            }
+                            elseif (strcmp($blocks[$i]['block'],'DAVID') == 0)
+                            {
+                                // We have a DAVID block and we want to add a JS function to open up the url that was constructed.
+                                $urlFile = $blocks[$i]['dataFile'];
+                                $DAVID_url = get_url_from_file($urlFile);
+                                if ($DAVID_url != "")
+                                {
+                                    echo("<input type='hidden' name='david_url' value='".$DAVID_url."'></input>");
+                                    $newBlock .= "ondblclick='go_to_david()'";
+                                }
                             }
                             $newBlock .= ">".$blockName."</div>";
                             array_push($blocksToPlace, $newBlock);
