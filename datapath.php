@@ -248,7 +248,7 @@
             <table class='push_buttons_table'>
                 <tr>
                     <td>
-                        <input id='add-block-button' class='push_button_left' type='button' onclick='compileAndRun()' value='Run' />
+                        <input class='push_button_left' type='button' onclick='compileAndRun()' value='Run' />
                     </td<
                 </tr>
             </table>
