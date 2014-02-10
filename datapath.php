@@ -60,6 +60,10 @@
     {
         goToGivenPage("compileAndRun.php");
     }
+    function connectionsPanel()
+    {
+        goToGivenPage("connections.php");
+    }
     function goToGivenPage(pageName) {
         var string = get_block_positions();
         if (string == "") {
@@ -249,7 +253,9 @@
                 <tr>
                     <td>
                         <input class='push_button_left' type='button' onclick='compileAndRun()' value='Run' />
-                    </td<
+                    </td>
+                    <td>
+                        <input class='push_button_right' type='button' onclick='connectionsPanel()' value='Connections' />
                 </tr>
             </table>
             ");

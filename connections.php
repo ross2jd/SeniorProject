@@ -17,14 +17,48 @@
         function getConnections() {
             var numBlocks = document.getElementsByName("numBlocks")[0].value;
             var blockNames = document.getElementsByName("blockNames");
-            var tableCells = document.getElementsByTagName("input");
-            for (var i = 0; i < tableCells.length; i=i+1)
+            var radioButtons = document.getElementsByClassName("blockRadio");
+            
+            // Init the 2 dimensional array for inputs
+            var blockInputs = new Array();
+            for (var i = 0; i < numBlocks; i++)
             {
-                if (tableCells[i].checked) {
-                    //code
-                }
+                blockInputs.push(Array());
             }
-            window.location.href = "processConnections.php"+classNames;
+            
+            // Ex for 3 blocks
+            // <0><1><2> row = 0
+            // <3><4><5> row = 1
+            // <6><7><8> row = 2
+            var row = 0;
+            var col = 0;
+            for (var i = 0; i < radioButtons.length; i=i+1)
+            {
+                if (col >= numBlocks) {
+                    // increment the row and reset the column (new table row)
+                    row += 1;
+                    col = 0;
+                }
+                if (col != row) {
+                    // We should ignore the case if the block references itself.
+                    if (radioButtons[i].checked) {
+                        // We need to look which boxes are checked.
+                        blockInputs[col].push(blockNames[row].value);
+                    }
+                }
+                col += 1;
+            }
+            // Create a GET string using the inputs
+            getString = "?numBlocks="+numBlocks;
+            for (var i = 0; i < numBlocks; i+= 1)
+            {
+                getString += "&"+blockNames[i].value+"="+blockInputs[i].join(',');
+            }
+            window.location.href = "processConnections.php"+getString;
+        }
+        function goToDatapath()
+        {
+            window.location.href = "datapath.php";
         }
     </script>
     <style>
@@ -57,8 +91,7 @@
     echo("<table align='center' class='connectionsTable'>");
     for($i = 0; $i <= $numBlocks; $i++) // loop for each row in the table
     {
-        $blockNames .= get_block_name($blocks[$i-1]).",";
-        if ($i > 1)
+        if ($i > 0)
         {
             echo("<input type='hidden' name='blockNames' value='".get_block_name($blocks[$i-1])."'>");
         }
@@ -83,7 +116,7 @@
             else
             {
                 // We should display a radio button
-                echo("<td class='connectionsTableCell' align='center'><input type='radio' name='".get_block_name($blocks[$i-1])."'></td>");
+                echo("<td class='connectionsTableCell' align='center'><input class='blockRadio' type='checkbox' name='".get_block_name($blocks[$i-1])."'></td>");
             }
         }
         echo("</tr>");
@@ -94,6 +127,9 @@
              <tr>
                 <td>
                     <input class='push_button_left' type='button' onclick='getConnections()' value='Submit' />
+                </td>
+                <td>
+                    <input class='push_button_right' type='button' onclick='goToDatapath()' value='Cancel' />
                 </td>
             </tr>
         </table>

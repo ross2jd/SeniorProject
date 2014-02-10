@@ -142,6 +142,74 @@ function block_has_input_properties($block)
     return false;
 }
 
+function block_has_mul_inputs($block)
+{
+    if ($block['block'] == 'Intersect')
+    {
+        return true;
+    }
+    return false;
+}
+
+function get_block_num_inputs($block)
+{
+    if ($block['block'] == 'Intersect')
+    {
+        return $block['numInputs'];
+    }
+    return 1;
+}
+
+function set_block_num_inputs(&$block, $numInputs)
+{
+    if ($block['block'] == 'Intersect')
+    {
+        $block['numInputs'] = $numInputs;
+    }
+}
+
+function set_block_input(&$block, $inputBlockName)
+{
+    if ($block['block'] == 'Generic Result')
+    {
+        $block['blockName'] = $inputBlockName;
+    }
+    elseif($block['block'] == 'DAVID')
+    {
+        $block['blockInput'] = $inputBlockName;
+    }
+}
+
+function block_input_exist($block)
+{
+    if ($block['block'] == 'Generic Result')
+    {
+        if (isset($block['blockName']))
+            return true;
+    }
+    elseif($block['block'] == 'DAVID')
+    {
+        if (isset($block['blockInput']))
+            return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function clear_block_input(&$block)
+{
+    if ($block['block'] == 'Generic Result')
+    {
+        unset($block['blockName']);
+    }
+    elseif($block['block'] == 'DAVID')
+    {
+        unset($block['blockInput']);
+    }
+}
+
 function get_block_input_names($block)
 {
     $blockNames = array();
@@ -207,9 +275,9 @@ function draw_connector_lines_for_blocks($blocks)
             $circleL_Y = $top + $blockHeight/2;
             $circleL_X = $left;
             $blockNames = get_block_input_names($curBlock);
-            if (!$blockNames)
+            if (!$blockNames || ($top == 0 && $left == 0))
             {
-                // There are no inputs!
+                // There are no inputs or the block was just placed!
                 return;
             }
             for ($j = 0; $j < count($blockNames); $j++)
