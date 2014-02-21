@@ -1,9 +1,13 @@
 __author__ = 'Jordan Ross'
 
 import urllib2
-from BeautifulSoup import BeautifulSoup, Tag
+from bs4 import BeautifulSoup, Tag
 import sys
 import os
+
+# Ensure that we have the correct encoding on the file.
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 datasetQueried = sys.argv[1]
 dbQueried = sys.argv[2]

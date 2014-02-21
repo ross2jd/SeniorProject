@@ -26,7 +26,10 @@ function make_assoc_array_from_file($fileID)
         else
         {
             $components =  explode("^&^", $line);
-            $block[$components[0]] = $components[1];
+            if (isset($components[1]))
+	        $block[$components[0]] = $components[1];
+	    else
+                $block[$components[0]] = NULL;
         }
     }
     fclose($file);

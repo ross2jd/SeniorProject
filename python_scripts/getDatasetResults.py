@@ -1,9 +1,14 @@
 __author__ = 'Jordan Ross'
 
 import urllib2
-from BeautifulSoup import BeautifulSoup, Tag
+from bs4 import BeautifulSoup, Tag
 import os
 import sys
+
+
+# Workaround to deal with unicode error
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 datasetQueried = sys.argv[1]
 url = "http://www.eh3.uc.edu/GenomicsPortals/dataSetSearch.do?portal_name="+datasetQueried+"&gene_list_selected=false"
@@ -20,7 +25,6 @@ if dataset_table is None:
     # We have most likely found (as far as I know a dataset that is not public)
     print "Error:1"
     exit()
-
 # Before we remove all the buttons from the page we need to get the arguments from the javascript function
 # beginAnalysisWithoutGeneList()
 dataset_list = []
@@ -44,23 +48,35 @@ subsoup = BeautifulSoup()
 row_num = 0;
 for row in rows:
     if row_num != 0:
-        new_cell = Tag(subsoup, "td")
-        radio_button = Tag(subsoup, "input", [("type", "radio"), ("name", "radio_button")])
-        dataset_hidden = Tag(subsoup, "input", [("type", "hidden"), ("name", "data_set"), ("value", dataset_list[row_num-1])])
-        database_hidden = Tag(subsoup, "input", [("type", "hidden"), ("name", "db"), ("value", database_list[row_num-1])])
-        row.insert(0, new_cell)
+        #new_cell = Tag(subsoup, "td")
+	new_cell = subsoup.new_tag("td")
+        #radio_button = Tag(subsoup, "input", [("type", "radio"), ("name", "radio_button")])
+	radio_button = subsoup.new_tag("input")
+	radio_button['type'] = "radio"
+	radio_button['name'] = "radio_button"
+        #dataset_hidden = Tag(subsoup, "input", [("type", "hidden"), ("name", "data_set"), ("value", dataset_list[row_num-1])])
+        dataset_hidden = subsoup.new_tag("input")
+	dataset_hidden['type'] = "hidden"
+	dataset_hidden['name'] = "data_set"
+	dataset_hidden['value'] = dataset_list[row_num-1]
+	#database_hidden = Tag(subsoup, "input", [("type", "hidden"), ("name", "db"), ("value", database_list[row_num-1])])
+        database_hidden = subsoup.new_tag("input")
+	database_hidden['type'] = "hidden"
+	database_hidden['name'] = "db"
+	database_hidden['value'] = database_list[row_num-1]
+	row.insert(0, new_cell)
         new_cell.insert(0, radio_button)
         new_cell.insert(1, dataset_hidden)
         new_cell.insert(2, database_hidden)
     else:
         # Enter in an empty cell tag to adjust the headers
-        new_cell = Tag(subsoup, "th")
+        #new_cell = Tag(subsoup, "th")
+	new_cell = subsoup.new_tag("th")
         row.insert(0, new_cell)
     row_num += 1
 
 # Last thing we need to do is to give the table tag the class name for our CSS.
 dataset_table['class'] = "datasetsTable"
-
 fileName = 'genomicPortalTemp/test' + str(fileID) + '.html'
 filePath = os.path.dirname(os.path.realpath(__file__))
 tempFile = os.path.join(filePath, fileName)

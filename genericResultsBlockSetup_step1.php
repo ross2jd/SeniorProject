@@ -65,7 +65,7 @@
         // Here we will get the available block types for them to choose from
         
         // Create the connnection
-        $con = mysqli_connect("127.0.0.1", "root", "Hockey101", "webbioblocks");
+        $con = mysqli_connect("127.0.0.1", "root", "UCinci2014", "webbioblocks");
         
         // Check connection
         if (mysqli_connect_errno())

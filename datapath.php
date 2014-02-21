@@ -5,9 +5,10 @@
     session_start();
 ?>
 <html lang="en-US">
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
     <meta charset='utf-8'>
     <title>Welcome to Web Bio Blocks</title>
+    <link rel='icon' type='image/png' href='Images/webbioblocks_title.png'>
     <link rel='stylesheet' type='text/css' href='main.css'>
     <link rel="stylesheet" type="text/css" href="blocks.css">  
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
@@ -140,7 +141,7 @@
         // Here we will dynamically populate the available blocks.
         
         // Create the connnection
-        $con = mysqli_connect("127.0.0.1", "root", "Hockey101", "webbioblocks");
+        $con = mysqli_connect("127.0.0.1", "root", "UCinci2014", "webbioblocks");
         
         // Check connection
         if (mysqli_connect_errno())
@@ -175,6 +176,7 @@
 
     <div class='page_header'>
         <img style='float: right; margin-left: auto; margin-right: 5px;' src='Images\help_icon.png' />
+        <img style='float: left; margin-left: 10px; margin-right: auto;' src='Images\webbioblocks_header.png' />
         <h1 class='page_title'>Welcome to Web Bio Blocks</h1>
     </div>
     <div class="content_wrappter"><!-- The wrapper for the content on the page -->
@@ -189,58 +191,61 @@
         </table>
         <div class="data_path_wrapper">
                 <?php
-                    $fileID = $_SESSION['fileID'];
-                    $blocks = make_assoc_array_from_file($fileID);
-                    if (isset($blocks))
+                    if (isset($_SESSION['fileID']))
                     {
-                        $blocksToPlace = array();
-                        for ($i = 0; $i < count($blocks); $i++)
+                        $fileID = $_SESSION['fileID'];
+                        $blocks = make_assoc_array_from_file($fileID);
+                        if (isset($blocks))
                         {
-                            // Loop through the array of blocks that we have so we can place them.
-                            $blockName = get_block_name($blocks[$i]);
-                            $blockClassName = get_block_class_name($blocks[$i]);
-                            $blockIdName = get_block_id_name($blockName);
-                            $x_pos = get_block_x_position($blocks[$i]);
-                            $y_pos = get_block_y_position($blocks[$i]);
-                            $newBlock = "<div class='draggable ui-draggable ".$blockClassName."' id='".$blockIdName."' name='drag_blocks'";
-                            $newBlock .= "style='left: ".$x_pos."; top: ".$y_pos.";' ";
-                            if (strcmp($blocks[$i]['block'],'Generic Result') == 0)
+                            $blocksToPlace = array();
+                            for ($i = 0; $i < count($blocks); $i++)
                             {
-                                // We have a results block and we want to add a JS function to open up some data. We also need to read in the data
-                                // to an array.
-                                $resultsFile = $blocks[$i]['resultsFile'];
-                                echo("<input type='hidden' name='results_file' value='".$resultsFile."'></input>");
-                                $newBlock .= "ondblclick='go_to_generic_results_ouput()'";
-                            }
-                            elseif (strcmp($blocks[$i]['block'],'DAVID') == 0)
-                            {
-                                // We have a DAVID block and we want to add a JS function to open up the url that was constructed.
-                                $urlFile = $blocks[$i]['dataFile'];
-                                $DAVID_url = get_url_from_file($urlFile);
-                                if ($DAVID_url != "")
+                                // Loop through the array of blocks that we have so we can place them.
+                                $blockName = get_block_name($blocks[$i]);
+                                $blockClassName = get_block_class_name($blocks[$i]);
+                                $blockIdName = get_block_id_name($blockName);
+                                $x_pos = get_block_x_position($blocks[$i]);
+                                $y_pos = get_block_y_position($blocks[$i]);
+                                $newBlock = "<div class='draggable ui-draggable ".$blockClassName."' id='".$blockIdName."' name='drag_blocks'";
+                                $newBlock .= "style='left: ".$x_pos."; top: ".$y_pos.";' ";
+                                if (strcmp($blocks[$i]['block'],'Generic Result') == 0)
                                 {
-                                    echo("<input type='hidden' name='david_url' value='".$DAVID_url."'></input>");
-                                    $newBlock .= "ondblclick='go_to_david()'";
+                                    // We have a results block and we want to add a JS function to open up some data. We also need to read in the data
+                                    // to an array.
+                                    $resultsFile = $blocks[$i]['resultsFile'];
+                                    echo("<input type='hidden' name='results_file' value='".$resultsFile."'></input>");
+                                    $newBlock .= "ondblclick='go_to_generic_results_ouput()'";
                                 }
+                                elseif (strcmp($blocks[$i]['block'],'DAVID') == 0)
+                                {
+                                    // We have a DAVID block and we want to add a JS function to open up the url that was constructed.
+                                    $urlFile = $blocks[$i]['dataFile'];
+                                    $DAVID_url = get_url_from_file($urlFile);
+                                    if ($DAVID_url != "")
+                                    {
+                                        echo("<input type='hidden' name='david_url' value='".$DAVID_url."'></input>");
+                                        $newBlock .= "ondblclick='go_to_david()'";
+                                    }
+                                }
+                                $newBlock .= ">".$blockName."</div>";
+                                array_push($blocksToPlace, $newBlock);
                             }
-                            $newBlock .= ">".$blockName."</div>";
-                            array_push($blocksToPlace, $newBlock);
+                            foreach($blocksToPlace as $placedBlock)
+                            {
+                                echo $placedBlock;
+                            }
+                            if (count($blocksToPlace) > 1)
+                            {
+                                // More than one block has been placed on the datapath so we should now draw lines (if needed)
+                                draw_connector_lines_for_blocks($blocks);
+                            }
+                            $_SESSION['placedBlocks'] = array();
+                            $_SESSION['placedBlocks'] = $blocks;
                         }
-                        foreach($blocksToPlace as $placedBlock)
+                        else
                         {
-                            echo $placedBlock;
+                            clearSession();
                         }
-                        if (count($blocksToPlace) > 1)
-                        {
-                            // More than one block has been placed on the datapath so we should now draw lines (if needed)
-                            draw_connector_lines_for_blocks($blocks);
-                        }
-                        $_SESSION['placedBlocks'] = array();
-                        $_SESSION['placedBlocks'] = $blocks;
-                    }
-                    else
-                    {
-                        clearSession();
                     }
                 ?>
         </div>

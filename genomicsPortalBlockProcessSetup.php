@@ -18,9 +18,9 @@ if (isset($_SESSION['fileID']))
 }
 $datapathBlocksFile = "python_scripts/datapathTemp/datapathBlocks".$fileID.".txt" or exit("Unable to open file!");
 if (file_exists($datapathBlocksFile)) {
-  $fh = fopen($datapathBlocksFile, 'a');
+  $fh = fopen($datapathBlocksFile, 'a') or exit("Unable to open file! Possible permissions error");
 } else {
-  $fh = fopen($datapathBlocksFile, 'w');
+  $fh = fopen($datapathBlocksFile, 'w') or exit("Unable to opne file! Possible permissions error");
 }
 // We need to keep track of how many blocks need data files so they have unique names
 if (isset($_SESSION['lastBlockNumber']))

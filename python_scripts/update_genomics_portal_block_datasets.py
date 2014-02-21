@@ -56,7 +56,7 @@ if len(portal_description_list) is not len(portal_name_list):
 
 # Now we have the list of descriptions and the list of portal names that we can add into the database
 # Comment out the db stuff because we cant test on desktop
-db = MySQLdb.connect(host="127.0.0.1", port=3306, user="root", passwd="Hockey101", db="webbioblocks")
+db = MySQLdb.connect(host="127.0.0.1", port=3306, user="root", passwd="UCinci2014", db="webbioblocks")
 cursor = db.cursor()
 sql = "TRUNCATE TABLE genomics_portal_block_datasets"
 # We are going to be very simple and just delete all the entries in the table and re add them.
