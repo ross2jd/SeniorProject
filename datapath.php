@@ -80,6 +80,7 @@
     
     $(function() {
       var answer;
+      var delete_answer;
       $( "#dialog-form" ).dialog({
         autoOpen: false,
         height: 450,
@@ -123,6 +124,36 @@
       .click(function() {
         $( "#dialog-form" ).dialog( "open" );
       });
+    $( "#delete-dialog-form" ).dialog({
+        autoOpen: false,
+        height: 450,
+        width: 500,
+        modal: true,
+        buttons: {
+          "Delete selected block": function() {
+              $("input").each(function(){
+                  (this.checked == true) ? delete_answer = $(this).val() : null;
+              });
+              $( this ).dialog( "close" );
+          },
+          Cancel: function() {
+              delete_answer = null;
+              $( this ).dialog( "close" );
+          }
+          },
+          close: function(event, ui) {
+              if (delete_answer != null) {
+                // if they made a selection then go to the php script to delete the block.
+                goToGivenPage("deleteBlock.php?block_id="+delete_answer);
+              }
+          }
+      });
+ 
+    $( "#delete-block-button" )
+      .button()
+      .click(function() {
+        $( "#delete-dialog-form" ).dialog( "open" );
+      });
     $('.draggable').draggable({
         containment: '.data_path_wrapper'
     });
@@ -133,7 +164,7 @@
 <body>
  
 <div id="dialog-form" title="Add Block">
-    <p>Select a block that you would like to add to your data flow.</p>
+    <p>Select a block that you would like to add to your datapath.</p>
     <form>
     <fieldset>
     <table>
@@ -172,6 +203,42 @@
   </form>
 </div>
 
+<div id="delete-dialog-form" title="Delete Block">
+    <p>Select a block that you would like to delete from your datapath.</p>
+    <form>
+        <fieldset>
+            <table>
+                <?php
+                if (isset($_SESSION['fileID']))
+                {
+                    $fileID = $_SESSION['fileID'];
+                    $blocks = make_assoc_array_from_file($fileID);
+                    if (isset($blocks))
+                    {
+                        for ($i = 0; $i < count($blocks); $i++)
+                        {
+                            $blockName = get_block_name($blocks[$i]);
+                            echo("<tr><td><input type='radio' name='block_id' class='radio_block_id' value='".$blockName."'></td>");
+                            echo("<td style='padding: 5px'>".$blockName."</td></tr>");
+                        }
+                    }
+                    else
+                    {
+                        // No blocks to delete
+                        echo("There are no blocks to delete from the datapath!");
+                    }
+                }
+                else
+                {
+                    // No blocks to delete
+                    echo("There are no blocks to delete from the datapath!");
+                }
+                ?>
+            </table>
+        </fieldset>
+    </form>
+</div>
+
 <!-- This is the code that is displayed when first visiting -->
 
     <div class='page_header'>
@@ -184,7 +251,7 @@
             <tr>
                 <td>
                     <input id="add-block-button" class="push_button_left" type="button" value="Add Block" />
-                    <input class="push_button_left" type="button" value="Delete Block" />
+                    <input id="delete-block-button" class="push_button_left" type="button" value="Delete Block" />
                 </td>
                 <td><input class="push_button_right" type="button" value="Tutorial" /></td>
             </tr>
@@ -250,7 +317,7 @@
                 ?>
         </div>
         <?php
-        if (isset($_SESSION['placedBlocks']))
+        if (isset($blocks) && count($blocks) > 0)
         {
             // We have at least one block, display the run button
             echo("

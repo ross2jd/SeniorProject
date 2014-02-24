@@ -23,7 +23,10 @@ foreach($_GET as $name=>$value)
             $blocks[$index]['yPos'] = $y;
         }
         else
-            exit("Error: No block was found!");
+        {
+            // ignore the error for now
+            //exit("Error: No block was found!");
+        }
     }
 }
 
