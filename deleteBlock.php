@@ -1,7 +1,7 @@
 <?php
     include 'functions.php';
     session_start();
-    $fileID = $_SESSION['fileID'];
+    $fileID = $_COOKIE['fileID'];
     $blocks = make_assoc_array_from_file($fileID);
     $datapathBlocksFile = "python_scripts/datapathTemp/datapathBlocks".$fileID.".txt" or exit("Unable to open file!");
     $fh = fopen($datapathBlocksFile, 'w');

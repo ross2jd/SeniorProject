@@ -2,7 +2,7 @@
     include 'functions.php';
     session_start();
     $failed =false;
-    $fileID = $_SESSION['fileID'];
+    $fileID = $_COOKIE['fileID'];
     $blocks = make_assoc_array_from_file($fileID);
     $newArray = explode(",", $_GET['Intersect']);
     print_r($_GET);

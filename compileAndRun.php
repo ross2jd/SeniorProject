@@ -3,7 +3,7 @@
 // Calling the python script to get the html table for the requested dataset
     session_start();
     // TODO: We have problems with sessions... we will have to hardcode for now...
-    $file = "datapathTemp/datapathBlocks".$_SESSION['fileID'].".txt";
+    $file = "datapathTemp/datapathBlocks".$_COOKIE['fileID'].".txt";
     $command = "python /var/www/webbioblocks_test/python_scripts/processDatapathFile.py ";
     $command .= " '".$file."' 2>&1";
     $pid = popen($command, "r");

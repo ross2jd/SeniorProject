@@ -3,17 +3,20 @@
 // It is going to take all the information for the $_GET array and put it into a file. This file is
 // going to have a unique ID that is assigned when the user first visits the website.
 session_start();
-if (isset($_SESSION['fileID']))
+if (isset($_COOKIE['fileID']))
 {
     // an existing fileID is present and it must be used!
-    $fileID = $_SESSION['fileID'];
+    $fileID = $_COOKIE['fileID'];
 } else
 {
-    // an session file ID does not exist, we should create one.
-    // we are going to use the users IP address
-    $_SESSION['fileID'] = str_replace(".","",$_SERVER['REMOTE_ADDR']);
-    $fileID = $_SESSION['fileID'];
-    
+    // a session file ID does not exist, we should create one.
+    // We are going to generate a unique ID using PHPs built in function
+    $uuid = uniqid("", true);
+    // We cant have dots in file names
+    $uuid = str_replace(".","-",$uuid);
+    $fileID = $uuid;
+    $expire=time()+604800; // time out after a week of inactivity from user
+    setcookie("fileID", $fileID, $expire);
 }
 
 // We need to find an unused fileID.

@@ -30,7 +30,7 @@ foreach($_GET as $name=>$value)
     }
 }
 
-$fileID = $_SESSION['fileID'];
+$fileID = $_COOKIE['fileID'];
 $datapathBlocksFile = "python_scripts/datapathTemp/datapathBlocks".$fileID.".txt" or exit("Unable to open file!");
 $fh = fopen($datapathBlocksFile, 'w');
 // Now just write the associative array to the file

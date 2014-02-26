@@ -209,9 +209,9 @@
         <fieldset>
             <table>
                 <?php
-                if (isset($_SESSION['fileID']))
+                if (isset($_COOKIE['fileID']))
                 {
-                    $fileID = $_SESSION['fileID'];
+                    $fileID = $_COOKIE['fileID'];
                     $blocks = make_assoc_array_from_file($fileID);
                     if (isset($blocks))
                     {
@@ -258,9 +258,9 @@
         </table>
         <div class="data_path_wrapper">
                 <?php
-                    if (isset($_SESSION['fileID']))
+                    if (isset($_COOKIE['fileID']))
                     {
-                        $fileID = $_SESSION['fileID'];
+                        $fileID = $_COOKIE['fileID'];
                         $blocks = make_assoc_array_from_file($fileID);
                         if (isset($blocks))
                         {

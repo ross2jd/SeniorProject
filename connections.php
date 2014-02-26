@@ -82,7 +82,7 @@
         <h1 class='page_title'>Welcome to Web Bio Blocks</h1>
     </div>
     <?php
-    $fileID = $_SESSION['fileID'];
+    $fileID = $_COOKIE['fileID'];
     $blocks = make_assoc_array_from_file($fileID);
     $numBlocks = count($blocks);
     echo("<input type='hidden' name='numBlocks' value='".$numBlocks."'>");
