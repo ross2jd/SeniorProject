@@ -2,15 +2,21 @@
 include('functions.php');
 
 echo("
-     <html lang="en-US">
+     <html lang='en-US'>
         <head>
             <meta charset='utf-8'>
-            <title>Results</title>
+            <title>Web Bio Blocks</title>
+            <link rel='icon' type='image/png' href='Images/webbioblocks_title.png'>
             <link rel='stylesheet' type='text/css' href='main.css'>
         </head>
         <div class='page_header'>
-            <img style='float: right; margin-left: auto; margin-right: 5px;' src='Images\help_icon.png' />
-            <h1 class='page_title'>Welcome to Web Bio Blocks</h1>
+            <div class='page_header_img_right' height='100%'>
+                <img src='Images\University_of_Cincinnati_logo.png' height='100%'/>
+            </div>
+            <div class='page_header_img_left' height='100%'>
+                <img src='Images\webbioblocks_header.png' height='100%' />
+            </div>
+            <h1 class='page_title'>Results</h1>
         </div>
      ");
 

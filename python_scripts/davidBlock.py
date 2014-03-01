@@ -17,21 +17,19 @@ def get_input_block(blockInputName, blocks):
 
 
 def process_block(block, blocks):
+    print "Starting processing of: " + block['BlockName'] + "..."
     url = "http://david.abcc.ncifcrf.gov/api.jsp?"
     blockInputName = block['blockInput']
-    print("blockInputName= "+blockInputName)
     # Get the input block
     inputBlock = get_input_block(blockInputName, blocks)
     if inputBlock['block'] == 'Intersect':
         data = inputBlock['result']
-        print data
         if len(data) < 30:
             # We are going to use the API for the intersect block
             url += "type="+block['identifier']+"&ids="
             for id_data in data:
                 url += id_data+","
             url += "&tool=gene2gene"
-            print(url)
             file_name = block['dataFile']
             script_dir = os.path.dirname(__file__)
             abs_file_path = os.path.join(script_dir, file_name)
@@ -40,6 +38,8 @@ def process_block(block, blocks):
             fh.close()
         else:
             # We need to use the selenium webdriver
-            print("Error:5:To many genes!")
+            print("Error:5:To many genes! -- Use the generic result block and paste list into DAVID website")
+
+    print "Done processing block: " + block['BlockName']
 
 

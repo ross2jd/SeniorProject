@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Web Bio Blocks</title>
+    <link rel='icon' type='image/png' href='Images/webbioblocks_title.png'>
     <link rel="stylesheet" type="text/css" href="main.css"></link>
     <script>
         function goBackToDatapath()
@@ -53,7 +54,12 @@
 <div class="wrapper"> <!-- The wrapper for the page -->
 <body>
     <div class="page_header">
-        <img style="float: right; margin-left: auto; margin-right: 5px;" src="Images\help_icon.png" />
+        <div class='page_header_img_right' height="100%">
+            <img src='Images\University_of_Cincinnati_logo.png' height="100%"/>
+        </div>
+        <div class='page_header_img_left' height="100%">
+            <img src='Images\webbioblocks_header.png' height="100%" />
+        </div>
         <h1 class="page_title">Generic Results Block Setup</h1>
         <ul class="navBarList">
             <li class="navBar" id="step1">Step 1</li>     

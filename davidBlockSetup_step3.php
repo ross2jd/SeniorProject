@@ -4,11 +4,16 @@
 <head>
     <meta charset="utf-8">
     <title>Web Bio Blocks</title>
+    <link rel='icon' type='image/png' href='Images/webbioblocks_title.png'>
     <link rel="stylesheet" type="text/css" href="main.css"></link>
     <script>
         function goBackToDatapath()
         {
             window.location.href = "datapath.php";
+        }
+        function goBackToStep2()
+        {
+            window.location.href = "davidBlockSetup_step2.php";
         }
         function getSelectedValues()
         {
@@ -71,7 +76,12 @@
 <div class="wrapper"> <!-- The wrapper for the page -->
 <body>
     <div class="page_header">
-        <img style="float: right; margin-left: auto; margin-right: 5px;" src="Images\help_icon.png" />
+        <div class='page_header_img_right' height="100%">
+            <img src='Images\University_of_Cincinnati_logo.png' height="100%"/>
+        </div>
+        <div class='page_header_img_left' height="100%">
+            <img src='Images\webbioblocks_header.png' height="100%" />
+        </div>
         <h1 class="page_title">DAVID Block Setup</h1>
         <ul class="navBarList">
             <li class="navBar" id="step1">Step 1</li>
@@ -105,9 +115,10 @@
     <table class="push_buttons_table" style="margin-top: 20px;">
         <tr>
             <td>
-                <button class="push_button_left" onclick="getSelectedValues()">Next</button>
+                <button class="push_button_left" onclick="getSelectedValues()">Create</button>
             <td>
                 <button class="push_button_right" onclick="goBackToDatapath()">Cancel</button>
+                <button class="push_button_right" onclick="goBackToStep2()">Previous</button>
             </td>
         </tr>
     </table>

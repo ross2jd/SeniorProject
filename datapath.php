@@ -59,7 +59,8 @@
     }
     function compileAndRun()
     {
-        goToGivenPage("compileAndRun.php");
+        //goToGivenPage("compileAndRun.php");
+        window.location.href = "compileAndRun.php";
     }
     function connectionsPanel()
     {
@@ -70,6 +71,9 @@
     }
     function undoDatapath() {
         window.location.href = "datapath.php";
+    }
+    function goToTutorial() {
+        window.location.href = "https://docs.google.com/document/d/1kES5nI4EXUOtcj9j0D9joEkIpZTgW5hKUAHx0BmjQak/pub"
     }
     function goToGivenPage(pageName) {
         var string = get_block_positions();
@@ -263,7 +267,7 @@
                     <input id="add-block-button" class="push_button_left" type="button" value="Add Block" />
                     <input id="delete-block-button" class="push_button_left" type="button" value="Delete Block" />
                 </td>
-                <td><input class="push_button_right" type="button" value="Tutorial" /></td>
+                <td><input class="push_button_right" type="button" value="Tutorial" onclick="goToTutorial()";/></td>
             </tr>
         </table>
         <div class="data_path_wrapper">

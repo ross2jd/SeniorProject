@@ -26,7 +26,6 @@ def retrieve_data(block):
         if value == block['includeORexclude']:
             # We have the radio button we want to mark as "checked"
             element.click()
-            print "clicked value = "+value
 
     # Next we need to traverse the filterchk names
     list_elements = driver.find_elements_by_css_selector("span.bullet")
@@ -48,7 +47,6 @@ def retrieve_data(block):
         value = element.get_attribute("value")
         if value == block['prop']:
             element.click()
-            print "clicked value = "+value
 
     # Next we need to select from the drop down menu
     ifCluster_element = driver.find_element_by_name("ifCluster")
@@ -57,7 +55,6 @@ def retrieve_data(block):
         value = option.get_attribute("value")
         if value == block['ifCluster']:
             option.click()
-            print "clicked value = "+value
 
     # Then we need to enter in our text values for the p value and change cutoff.
     sigcutoff_element = driver.find_element_by_name("sigcutoff")
@@ -88,8 +85,6 @@ def retrieve_data(block):
     # We have to bre ak from the loop or else it will look for elements that dont exist!
     tag_to_click.click()
 
-    print "Done!"
-
     # Now we are on the page that will display the data.
     # TODO: Put a better try case here for when data does not appear!
     try:
@@ -105,9 +100,8 @@ def retrieve_data(block):
         else:
             print "Error:3:Unknown Output!"
 
-        print download_url
     except:
-        print "No data!"
+        print "Error:7:No data!"
         driver.quit()
         exit()
 
@@ -121,11 +115,9 @@ def retrieve_data(block):
     script_dir = os.path.dirname(__file__)
     data_path = block['dataFile']
     abs_file_path = os.path.join(script_dir, data_path)
-    print "downloading with urllib2"
     data = response.read()
     with open(abs_file_path, "wb") as code:
         code.write(data)
-    print "done!"
     code.close()
 
     # End the selenium webdriver
@@ -136,6 +128,7 @@ def retrieve_data(block):
 
 
 def process_block(block):
+    print "Starting processing of: " + block['BlockName'] + "..."
     # Initialize variables
     chainable = False
     block_completed = False
@@ -155,7 +148,7 @@ def process_block(block):
     else:
         print "Non chainable outputs are not working yet :("
         exit()
-
+    print "Done processing block: " + block['BlockName']
     return block_completed
 
 

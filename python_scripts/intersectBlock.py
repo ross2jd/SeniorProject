@@ -38,6 +38,7 @@ def intersect_data(intersect_block, data_files):
 
 
 def process_block(intersect_block, blocks):
+    print "Starting processing of: " + intersect_block['blockName0'] + "..."
     block_names = []
     for i in range(1, int(intersect_block['numInputs'])+1):
         block_names.append(intersect_block['blockName'+str(i)])
@@ -61,4 +62,5 @@ def process_block(intersect_block, blocks):
     else:
         return False
 
+    print "Done processing block: " + intersect_block['blockName0']
     return True

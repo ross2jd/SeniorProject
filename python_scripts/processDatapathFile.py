@@ -66,6 +66,7 @@ def process_logical_block(block, blocks):
 #                                  MAIN                                       #
 ###############################################################################
 if __name__ == '__main__':
+    print "Starting execution..."
     rel_path = sys.argv[1]
     script_dir = os.path.dirname(__file__)
     #rel_path = "datapathTemp/datapathBlocks1921681105.txt"
@@ -89,4 +90,4 @@ if __name__ == '__main__':
             print "Error:1:Unknown Block!"
             exit()
 
-    print blocks
+    print "Execution is complete. Return to datapath.php to view results"

@@ -6,7 +6,6 @@ import os
 def write_data_to_file(data, file_name):
     script_dir = os.path.dirname(__file__)
     abs_file_path = os.path.join(script_dir, file_name)
-    print data
     fh = open(abs_file_path, 'w')
     for item in data:
         fh.write("%s\n" % item)
@@ -28,6 +27,7 @@ def get_data_intersect_block(name, blocks):
 
 
 def process_block(results_block, blocks):
+    print "Starting processing of: " + results_block['BlockName'] + "..."
     # Get the type of the input for the results block.
     input_type = results_block['blockType']
     if input_type == 'Intersect':
@@ -39,4 +39,5 @@ def process_block(results_block, blocks):
         else:
             write_data_to_file(data, results_block['resultsFile'])
 
+    print "Done processing block: " + results_block['BlockName']
     return True

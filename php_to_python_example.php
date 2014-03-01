@@ -32,5 +32,5 @@ while( !feof( $pid ) )
 pclose($pid);
  
 echo "</pre><script>window.scrollTo(0,99999);</script>";
-echo "<br /><br />Script finalizado<br /><br />";
+echo "<br /><br /><a href='datapath.php'>Return To Datapath</a><br /><br />";
 ?>

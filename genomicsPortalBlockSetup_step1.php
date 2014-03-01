@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Web Bio Blocks</title>
+    <link rel='icon' type='image/png' href='Images/webbioblocks_title.png'>
     <link rel="stylesheet" type="text/css" href="main.css">
     <script>
         function goBackToDatapath()
@@ -42,6 +43,14 @@
             border: thick solid #00EE00;
         }
         
+        .disclaimer
+        {
+            width: 90%;
+            margin: 0 auto;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
         .datasets
         {
             height: 100%;
@@ -49,7 +58,7 @@
             margin: 0 auto;
             margin-top: 20px;
         }
-        
+
         .datasetsTable
         {
             height: 100%;
@@ -66,7 +75,12 @@
 <div class="wrapper"> <!-- The wrapper for the page -->
 <body>
     <div class="page_header">
-        <img style="float: right; margin-left: auto; margin-right: 5px;" src="Images\help_icon.png" />
+        <div class='page_header_img_right' height="100%">
+            <img src='Images\University_of_Cincinnati_logo.png' height="100%"/>
+        </div>
+        <div class='page_header_img_left' height="100%">
+            <img src='Images\webbioblocks_header.png' height="100%" />
+        </div>
         <h1 class="page_title">Genomics Portal Block Setup</h1>
         <ul>
             <li class="navBar" id="step1">Step 1</li>
@@ -74,7 +88,9 @@
             <li class="navBar" id="step3">Step 3</li>        
         </ul>
     </div>
-    
+    <!-- Here we should place a disclaimer for where the data is coming from -->
+    <p class="disclaimer">The data retrieved using this block is from the University of Cincinnati's Genomics portal block. More information about the data
+    and the site please visit <a href="http://www.eh3.uc.edu/GenomicsPortals/">www.eh3.uc.edu/GenomicsPortals/</a>.</p>
     <!-- Here we should display the search box -->
     <div class="searchBox">
         
@@ -101,8 +117,15 @@
             printf("error: %s\n", mysqli_error($con));
         }
         
+        $row_num = 0;
         while ($row = mysqli_fetch_assoc($result))
         {
+            if ($row_num == 0)
+            {
+                // Print the headers to the table
+                echo "<tr><th></th><th>Database</th><th>Description</th></tr>";
+                $row_num++;
+            }
             //echo "<tr><td><input type='radio' name='block_name' class='radio ui-widget-content ui-corner-all' value='".$row['name']."'></td>";
             echo "<tr><td><input type='radio' name='dataset_name' value='".$row['portal_getstring']."'></td>";
             echo "<td style='padding: 5px'>".$row['portal_name']."</td><td style='word-wrap: break-word; padding: 5px'>".$row['description']."</td></tr>";
