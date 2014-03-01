@@ -85,6 +85,6 @@
     if (!$failed)
     {
         $url = "datapath.php";
-        //header( "Location: $url" );
+        header( "Location: $url" );
     }
 ?>

@@ -65,6 +65,12 @@
     {
         goToGivenPage("connections.php");
     }
+    function updateDatapath() {
+        goToGivenPage("datapath.php");
+    }
+    function undoDatapath() {
+        window.location.href = "datapath.php";
+    }
     function goToGivenPage(pageName) {
         var string = get_block_positions();
         if (string == "") {
@@ -242,8 +248,12 @@
 <!-- This is the code that is displayed when first visiting -->
 
     <div class='page_header'>
-        <img style='float: right; margin-left: auto; margin-right: 5px;' src='Images\help_icon.png' />
-        <img style='float: left; margin-left: 10px; margin-right: auto;' src='Images\webbioblocks_header.png' />
+        <div class='page_header_img_right' height="100%">
+            <img src='Images\University_of_Cincinnati_logo.png' height="100%"/>
+        </div>
+        <div class='page_header_img_left' height="100%">
+            <img src='Images\webbioblocks_header.png' height="100%" />
+        </div>
         <h1 class='page_title'>Welcome to Web Bio Blocks</h1>
     </div>
     <div class="content_wrappter"><!-- The wrapper for the content on the page -->
@@ -308,6 +318,12 @@
                             }
                             $_SESSION['placedBlocks'] = array();
                             $_SESSION['placedBlocks'] = $blocks;
+                            echo("
+                                <table style='right: 0; position: absolute; bottom: 0;'>
+                                    <tr><td><button type='button' onclick='updateDatapath()'><img width='30px' height='30px' src='Images\checkmark_icon.png'/></button></td>
+                                    <td><button type='button' onclick='undoDatapath()'><img width='30px' height='30px' src='Images\cancel_icon.png'/></button></td></tr>
+                                </table>
+                                 ");
                         }
                         else
                         {

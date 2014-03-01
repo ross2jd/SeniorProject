@@ -73,7 +73,37 @@
             border: solid;
             padding: 6px;
         }
+        .captionCell
+        {
+            border: solid;
+            padding: 6px;
+            border-bottom: hidden;
+        }
+        .rotate {
+            border: solid;
+            border-top: hidden;
+            padding: 0px;
+               -moz-transform: rotate(-90.0deg);  /* FF3.5+ */
+                 -o-transform: rotate(-90.0deg);  /* Opera 10.5 */
+            -webkit-transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
+                       filter:
+                           progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
+                   -ms-filter:
+                           "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+        }
+          
     </style>
+    <!--[if lte IE 9]>
+    <style>
+        .rotCaption {
+            writing-mode:tb-lr;
+            margin-left:-1em;
+            width:100%;
+            white-space:nowrap;
+            text-indent:2em;
+        }
+    </style>
+    <![endif]-->
 </head>
 <div class="wrapper"> <!-- The wrapper for the page -->
 <body>
@@ -89,6 +119,7 @@
     // We are going to create a table layout where we will list the block names on the left side, and
     // along the top.
     echo("<table align='center' class='connectionsTable'>");
+    echo("<caption class='captionCell'>Input Block</caption>");
     for($i = 0; $i <= $numBlocks; $i++) // loop for each row in the table
     {
         if ($i > 0)
@@ -96,12 +127,16 @@
             echo("<input type='hidden' name='blockNames' value='".get_block_name($blocks[$i-1])."'>");
         }
         echo("<tr>");
+        if ($i == 0)
+        {
+            echo("<td rowspan='".($numBlocks+1)."' class='rotate'>Output Block</td>");
+        }
         for ($j = 0; $j <= $numBlocks; $j++) // loop for each column in the table
         {
             if (($i == 0) && ($j == 0))
             {
-                // We should output the block name
-                echo("<td></td>");
+                // Empty cell for upper left corner
+                echo("<td class='connectionsTableCell'></td>");
             }
             elseif ($i == 0)
             {
