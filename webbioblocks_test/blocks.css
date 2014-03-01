@@ -1,0 +1,61 @@
+/* This CSS file contains all the CSS for each supported block */
+
+.Genomics_Block
+{
+    border: solid thin #000000;
+    background: #FF0000;
+    text-align: center;
+    font-size: medium;
+    height: 125px;
+    width: 125px;
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0 auto;
+    cursor: move;
+    position: absolute;
+}
+
+.Intersect_Block
+{
+    border: solid thin #000000;
+    background: #00FF00;
+    text-align: center;
+    font-size: medium;
+    height: 125px;
+    width: 125px;
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0 auto;
+    cursor: move;
+    position: absolute;
+}
+
+.Generic_Result_Block
+{
+    border: solid thin #000000;
+    background: #0066FF;
+    text-align: center;
+    font-size: medium;
+    height: 125px;
+    width: 125px;
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0 auto;
+    cursor: move;
+    position: absolute;
+}
+
+.DAVID_Block
+{
+    border: solid thin #000000;
+    background: #00FFFF;
+    text-align: center;
+    font-size: medium;
+    height: 125px;
+    width: 125px;
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0 auto;
+    cursor: move;
+    position: absolute;
+}

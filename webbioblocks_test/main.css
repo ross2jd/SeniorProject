@@ -1,0 +1,184 @@
+/* PAGE WRAPPER:
+ * Put a 1 cm margin all the way around
+ */
+.wrapper
+{
+    background-color: #F2F2F2;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+html
+{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+body
+{
+    background-color: #F2F2F2;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* CONTENT WRAPPER
+ *
+ */
+
+/* PAGE HEADER:
+ * Display the background colors
+ */
+.page_header
+{
+    margin-top: 0px;
+    background-color: #000000;
+    border-radius:5px;
+}
+
+.page_header_img_right
+{
+    width: 140px;
+    height: 60px;
+    float: right;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.page_header_img_left
+{
+    width: 140px;
+    height: 60px;
+    float: left;
+    margin-left: 10px;
+    margin-right: auto;
+}
+
+/* PAGE TITLE:
+ * Centered on screen
+ * Large text
+ * Font = Times New Roman
+ */
+h1.page_title
+{
+    text-align: center;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size: 50px;
+    color: #FF0000;
+    margin-top: 0;
+}
+
+/* PAGE FOOTER:
+ * Display the background colors
+ */
+.page_footer
+{
+    margin-top: 15px;
+    background-color: #000000;
+    border-radius:5px;
+    height: 70px;
+}
+
+.push_button
+{
+    border:2px solid #a1a1a1;
+    padding:10px 40px; 
+    background:#dddddd;
+    width:300px;
+    border-radius:25px;
+}
+
+/* PUSH BUTTONS TABLE
+ * No border
+ */
+.push_buttons_table
+{
+    border: none;
+    table-layout: auto;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* PUSH BUTTON RIGHT:
+ * Rounded corners
+ * Font =
+ * Color =
+ * Align = Right
+ */
+.push_button_right
+{
+    float: right;
+    border:2px solid #a1a1a1;
+    padding:10px 40px; 
+    background:#dddddd;
+    width:150px;
+    border-radius:25px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+/* PUSH BUTTONS LEFT:
+ * Rounded corners
+ * Font =
+ * Color =
+ * Alight = Left
+ */
+.push_button_left
+{
+    float: left;
+    margin-left: 5px;
+    border:2px solid #a1a1a1;
+    padding:10px 40px; 
+    background:#dddddd;
+    width:150px;
+    border-radius:25px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+#add-block-button
+{
+    float: left;
+    margin-left: 5px;
+    border:2px solid #a1a1a1;
+    padding:10px 40px; 
+    background:#dddddd;
+    width:150px;
+    border-radius:25px;
+    font-family:Arial,Helvetica,sans-serif;
+    color: #000000;
+    font-size: larger;
+}
+#delete-block-button
+{
+    float: left;
+    margin-left: 5px;
+    border:2px solid #a1a1a1;
+    padding:10px 40px; 
+    background:#dddddd;
+    width:150px;
+    border-radius:25px;
+    font-family:Arial,Helvetica,sans-serif;
+    color: #000000;
+    font-size: larger;
+}
+
+/* DATA PATH WRAPPER
+ * The box in which we are going to confine the user to
+ * create their data path.
+ * Border = Black
+ * Height = 500 px
+ * Center with page
+ */
+.data_path_wrapper
+{
+    margin-top: 20px;
+    width: 1125px;
+    margin-left: auto;
+    margin-right: auto;
+    border:1px solid #000000;
+    height: 500px;
+    background: #FFFFFF;
+    position: relative;
+}
