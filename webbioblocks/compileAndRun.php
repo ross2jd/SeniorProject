@@ -13,7 +13,7 @@
     /// This php script will handle calling the python script that will compile and execute our blocks
     /// Calling the python script to get the html table for the requested dataset
     $file = "datapathTemp/datapathBlocks".$_COOKIE['fileID'].".txt";
-    $command = "python /var/www/webbioblocks_test/python_scripts/processDatapathFile.py ";
+    $command = "python /var/www/webbioblocks/python_scripts/processDatapathFile.py ";
     $command .= " $file 2>&1";
     $pid = popen($command, "r");
     $failedToExecute = false;

@@ -150,7 +150,7 @@
     }
     
     // Calling the python script to get the html table for the requested dataset
-    $command = "python /var/www/webbioblocks_test/python_scripts/getDatasetFormOptions.py ";
+    $command = "python /var/www/webbioblocks/python_scripts/getDatasetFormOptions.py ";
     $command .= " '".$datasetQueried."' '".$dbQueried."' ".$fileID." 2>&1";
     $pid = popen($command, "r");
     $failedToExecute = false;
